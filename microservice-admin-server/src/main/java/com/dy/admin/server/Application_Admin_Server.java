@@ -16,10 +16,10 @@ import de.codecentric.boot.admin.server.config.EnableAdminServer;
 @EnableAdminServer
 @EnableAutoConfiguration
 @Configuration
-public class Admin_Server_App {
+public class Application_Admin_Server {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Admin_Server_App.class, args);
+		SpringApplication.run(Application_Admin_Server.class, args);
 	}
 
 	@Configuration

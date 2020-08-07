@@ -14,10 +14,10 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 @EnableHystrixDashboard
 @EnableEurekaClient
 @EnableDiscoveryClient
-public class Application_HystrixDashboard {
+public class Application_Hystrix_Dashboard_Server {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application_HystrixDashboard.class, args);
+        SpringApplication.run(Application_Hystrix_Dashboard_Server.class, args);
     }
 
 }

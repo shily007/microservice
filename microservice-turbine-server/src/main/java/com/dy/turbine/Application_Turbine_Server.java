@@ -10,10 +10,10 @@ import org.springframework.cloud.netflix.turbine.EnableTurbine;
 @EnableEurekaClient
 @EnableDiscoveryClient
 @EnableTurbine
-public class Application_Consumer {
+public class Application_Turbine_Server {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application_Consumer.class, args);
+		SpringApplication.run(Application_Turbine_Server.class, args);
 	}
 
 }
