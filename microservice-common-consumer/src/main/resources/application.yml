@@ -5,14 +5,18 @@ spring:
   application:
     name: "@project.artifactId@"
   main:    allow-bean-definition-overriding: true
+  security:    user:      name: admin
+      password: 111
 
 eureka: 
   client: #客户端注册进eureka服务列表内
     service-url: 
-      defaultZone: http://user:111@localhost:7001/eureka/
+      defaultZone: http://admin:123456@localhost:7001/eureka/   
   instance:
     instance-id: "@project.artifactId@"
     prefer-ip-address: true     #访问路径可以显示IP地址 
+    metadata-map:      user.name: admin
+      user.password: 111
 
 management:
   endpoints:

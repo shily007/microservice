@@ -12,8 +12,8 @@ spring:
 #        url: http://localhost:8000
   security:
     user:
-      name: user
-      password: 111
+      name: ENC(+8Qi/AE8/qMVBp/cfbK21Q==)
+      password: ENC(x8RkFh6daB/KpSO8pB9pjQ==)
         
 management:
   endpoints:

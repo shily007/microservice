@@ -21,7 +21,7 @@ eureka:
 turbine:
   aggregator:
     cluster-config: default
-  app-config: microservice-common-consumer
+  app-config: microservice-common-consumer,microservice-common-provider
   cluster-name-expression: new String("default")
     
 #本服务的说明 

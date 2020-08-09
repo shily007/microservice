@@ -1,0 +1,40 @@
+server:
+  port: 80
+  
+spring:
+  application:
+    name: "@project.artifactId@"
+  main:    allow-bean-definition-overriding: true
+
+eureka: 
+  client: #客户端注册进eureka服务列表内
+    service-url: 
+      defaultZone: http://user:111@localhost:7001/eureka/
+  instance:
+    instance-id: "@project.artifactId@"
+    prefer-ip-address: true     #访问路径可以显示IP地址 
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        
+feign: 
+  hystrix: 
+    enabled: true
+    
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: true
+#        isolation:
+#          strategy: S
+    
+info: 
+  app.name: "@project.artifactId@"
+  company.name: www.dy.com
+  build.artifactId: "@project.artifactId@"
+  build.version: "@project.version@"

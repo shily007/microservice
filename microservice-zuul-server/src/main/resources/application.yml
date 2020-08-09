@@ -1,0 +1,81 @@
+server: 
+  port: 9001
+  
+spring:  
+  application:
+    name: "@project.artifactId@"
+  main:    allow-bean-definition-overriding: true
+
+eureka: 
+  client: #客户端注册进eureka服务列表内
+    service-url:      
+      defaultZone: http://user:111@localhost:7001/eureka/
+#       defaultZone: http://eureka7001.com:7001/eureka/ #,http://eureka7002.com:7002/eureka/,  http://eureka7003.com:7003/eureka/ 
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true     #访问路径可以显示IP地址 
+    
+management:
+  endpoints:
+    web:
+      exposure:
+       include: "*" 
+       
+ribbon:
+  ReadTimeout: 7000 #超时时间
+  ConnectTimeout: 2000 #连接时间
+  MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+  OkToRetryOnAllOperations: false  #是否所有操作都重试
+  
+#解决hystrix+feign超时设置
+feign:
+  hystrix: #开启feign支持hystrix (注意:一定要开启，旧版本默认支持，新版本默认关闭)
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 7000
+
+
+# ========================================================
+#  不配置路由规则，默认可以用服务注册名称来路由
+#  商品服务：http://localhost:9000/product-service/api/v1/product/list
+#  订单服务：http://localhost:9000/order-service/api/v1/order/find?id=3
+
+#  自定义路由规则
+zuul:
+  host:    
+    connect-timeout-millis: 15000
+    socket-timeout-millis: 60000 
+  sensitive-headers: Cookie,Set-Cookie,Authorization
+  add-host-header: true
+  add-proxy-headers: true
+  prefix: /microservice   #前缀
+  ignored-services: microservice-common-provider
+  ignored-patterns: microservice-common-provider
+  ignored-headers: true
+  routes: 
+    consumer: 
+      serviceId: microservice-common-consumer
+      path: /consumer/**
+      sensitiveHeaders: ""
+      customSensitiveHeaders: true         
+    provider: 
+      serviceId: microservice-common-provider
+      path: /provider/**
+      sensitiveHeaders: ""
+      customSensitiveHeaders: true
+  
+#本服务的说明 
+info: 
+  app.name: ${spring.application.name}
+  company.name: www.dy.com
+  build.artifactId: "@project.artifactId@"
+  build.version: "@project.version@"
+# 访问product-service   http://localhost:9001/microservice/consumer
+# 访问order-service     http://localhost:9001/microservice/provider
