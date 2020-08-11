@@ -15,6 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.dy.api.utils.JsonResult;
 import com.dy.authorization.properties.SecurityConstants;
+import com.dy.authorization.utils.AuthorizationUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -31,14 +32,14 @@ public class AuthCodeFilter extends OncePerRequestFilter {
 
 	@Override
 	public void afterPropertiesSet() throws ServletException {
-		super.afterPropertiesSet();	
+		super.afterPropertiesSet();
 	}
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		try {     
-			if(isDecrypt(request))
+		try {
+			if (AuthorizationUtil.isJSONLogin(request) && isDecrypt(request))
 				filterChain.doFilter(new RequestWrapper(request), response);
 			else
 				filterChain.doFilter(request, response);
@@ -53,20 +54,22 @@ public class AuthCodeFilter extends OncePerRequestFilter {
 			}
 		}
 	}
-	
+
 	/**
 	 * @Description 判断是否需要解密操作
 	 * @param request
-	 * @return 
+	 * @return
 	 * @author dy
 	 * @date 2019年12月13日
 	 */
 	private boolean isDecrypt(HttpServletRequest request) {
-		for (int i = 0; i < SecurityConstants.NEED_DECRYPT_PARAMS.length; i++) {
-			Map<String, String[]> parameterMap = request.getParameterMap();
-        	if(parameterMap.containsKey(SecurityConstants.NEED_DECRYPT_PARAMS[i])) 
-        		return true;
-		} 
+		Map<String, String[]> parameterMap = request.getParameterMap();
+		if (parameterMap != null && parameterMap.size() > 0) {
+			for (int i = 0; i < SecurityConstants.NEED_DECRYPT_PARAMS.length; i++) {
+				if (parameterMap.containsKey(SecurityConstants.NEED_DECRYPT_PARAMS[i]))
+					return true;
+			}
+		}
 		return false;
 	}
 

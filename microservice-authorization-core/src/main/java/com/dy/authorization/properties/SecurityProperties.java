@@ -3,13 +3,12 @@ package com.dy.authorization.properties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@ConfigurationProperties(prefix = "com.sc.security", ignoreInvalidFields = true)
+@ConfigurationProperties(prefix = "com.dy.security", ignoreInvalidFields = true)
 @Component
 public class SecurityProperties {	
 	
 	private BrowserProperties browser = new BrowserProperties();
 	private Oauth2Properties oauth2 = new Oauth2Properties();
-	private AuthCodeProperties code = new AuthCodeProperties();
 	
 	public BrowserProperties getBrowser() {
 		return browser;
@@ -22,12 +21,6 @@ public class SecurityProperties {
 	}
 	public void setOauth2(Oauth2Properties oauth2) {
 		this.oauth2 = oauth2;
-	}
-	public AuthCodeProperties getCode() {
-		return code;
-	}
-	public void setCode(AuthCodeProperties code) {
-		this.code = code;
 	}
 	
 }

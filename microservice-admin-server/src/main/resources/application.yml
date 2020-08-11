@@ -6,7 +6,7 @@ spring:
     name: "@project.artifactId@"
   main:
     allow-bean-definition-overriding: true
-#  security:#    user:#      name: ENC(+8Qi/AE8/qMVBp/cfbK21Q==)#      password: ENC(x8RkFh6daB/KpSO8pB9pjQ==)
+#  security: #    user:#      name: ENC(+8Qi/AE8/qMVBp/cfbK21Q==)#      password: ENC(x8RkFh6daB/KpSO8pB9pjQ==)
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/microservice?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=Hongkong
@@ -38,11 +38,11 @@ eureka:
       user.name: ENC(+8Qi/AE8/qMVBp/cfbK21Q==)
       user.password: ENC(x8RkFh6daB/KpSO8pB9pjQ==)
       
-com: 
-  dy: 
-    security: 
-      browser: 
-        loginType: REDIRECT
+#com: 
+#  dy: 
+#    security: 
+#      browser: 
+#        loginType: REDIRECT
 
       
 #本服务的说明 

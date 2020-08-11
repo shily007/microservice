@@ -37,7 +37,7 @@
 			<artifactId>microservice-authorization-core</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
@@ -46,4 +46,16 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<mainClass>com.dy.admin.server.Application_Admin_Server</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

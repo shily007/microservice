@@ -93,9 +93,23 @@ public class SecurityConstants {
 			+ "vrP+ve8y0I8TpV5yEhY31G1fsONiFAPkhTnKXyHNgNbGI1Ojc2pH1PUr74BCgHfwPT8FW829klWjI1bZI6XQwJAU8Dlh9XjOm2L1d6b1IY9rpjLi/a6P42Q6GZ4rIVO/eY1s"
 			+ "M50wyehuJKHyD7I1rfcybvYqbIEV29B6B5e25CiAQJBALPg5oTCIFZKekn/cxFCyHzO1pQE/PvOSax3f4thyZIk2FZeWtwAplsFAu+vEsDV3LR8+qaEP5PgKes9clbi9pECQ"
 			+ "QDbKoJhmIttm+ndY8LkuQf3f7tqrHyZZDUccAc3o7WOUtuQigIsyKf7nbi3nsU1Khjbgd6to/UTBMwdq9z+il+x";
-	
+
 	/**
 	 * session失效默认的跳转地址
 	 */
 	public static final String DEFAULT_SESSION_INVALID_URL = "/session/invalid";
+
+	public static final String[] URI_NOT_VALIDATE = { "/code/*", "/swagger-ui.html", "/**/*.css", "/**/*.js",
+			"/**/*.css?*", "**.js?*", "/**/*.html", "/swagger*/**", "/webjars/**", "/v2/**", "/file/**", "/show/**",
+			"/publicKey", "/validateCode/**", "/signUp.html", SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+			"/qqLogin/**", "/actuator", "/actuator/**", "/", "/turbine/*", "/turbine.*", "/**/hystrix.**", "/hystrix/*",
+			"/**/*.*.js", "/**/*.ico", "hystrix.stream&title=sys-consumer","/login",
+			SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_EMAIL };
+	
+	public static final String[] URI_NOT_VALIDATE_SWAGGER = { "/code/*", "/swagger-ui.html", "/**/*.css", "/**/*.js",
+			"/**/*.css?*", "**.js?*", "/**/*.html", "/swagger*/**", "/webjars/**", "/v2/**", "/file/**", "/show/**",
+			"/publicKey", "/validateCode/**", "/signUp.html", SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+			"/qqLogin/**", "/actuator", "/actuator/**", "/", "/turbine/*", "/turbine.*", "/**/hystrix.**", "/hystrix/*",
+			"/**/*.*.js", "/**/*.ico", "hystrix.stream&title=sys-consumer",
+			SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_EMAIL };
 }

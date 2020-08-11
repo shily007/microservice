@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.tomcat.websocket.AuthenticationException;
@@ -27,8 +28,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.stereotype.Component;
 
 import com.dy.api.utils.JsonResult;
-import com.dy.authorization.properties.LoginType;
-import com.dy.authorization.properties.SecurityProperties;
+import com.dy.authorization.utils.AuthorizationUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -48,14 +48,14 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 	private ObjectMapper objectMapper;
 	@Autowired
 	private Logger logger;
-	@Autowired
-	private SecurityProperties securityProperties;
+//	@Autowired
+//	private SecurityProperties securityProperties;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {
 		logger.info("登录成功！");
-		if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {			
+		if (AuthorizationUtil.isJSONLogin(request)) {
 			response.setContentType("application/json;charset=UTF-8");
 		}
 		try {
@@ -82,16 +82,16 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 					clientDetails.getScope(), "password");
 			OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
 			OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
-			if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
-				OAuth2AccessToken token = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);				
+			OAuth2AccessToken token = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);			
+			if (AuthorizationUtil.isJSONLogin(request)) {
 				response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(token)));
+			} else {
+				HttpSession session = request.getSession();
+				session.setAttribute("Authorization", token);
 			}
 		} catch (Exception e) {
 			response.setStatus(HttpStatus.OK.value());
-			response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(e.getMessage())));		
-		}
-		if (!LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
-			super.onAuthenticationSuccess(request, response, authentication);
+			response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(e.getMessage())));
 		}
 	}
 

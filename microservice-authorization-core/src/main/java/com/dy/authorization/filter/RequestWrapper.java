@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.LoggerFactory;
 
 import com.dy.authorization.properties.SecurityConstants;
 import com.dy.authorization.rsa.RSAUtil;
@@ -23,8 +23,8 @@ import com.dy.authorization.rsa.RSAUtil;
  */
 public class RequestWrapper extends HttpServletRequestWrapper {
 
-	@Autowired
-	private Logger logger;
+	private Logger logger = LoggerFactory.getLogger(Object.class);
+	
 	private Map<String, String[]> paramsMap = new HashMap<String, String[]>();//将request对象中的参数修改后，放在这个集合里，随后项目取的所有Parameter都是从这个集合中取数
 	
 	/**

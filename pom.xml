@@ -91,9 +91,6 @@
         </dependency>
 	</dependencies>
 
-	<!-- <build> <finalName>${project.name}</finalName> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
-		<artifactId>spring-boot-maven-plugin</artifactId> </plugin> </plugins> </build> -->
-
 	<build>
 		<finalName>${project.name}</finalName>
 		<plugins>
@@ -119,5 +116,7 @@
 		<module>microservice-utils</module>
 		<module>microservice-authorization-core</module>
 		<module>microservice-authorization-server</module>
+		<module>microservice-authorization-browser</module>
+		<module>microservice-authorization-app</module>
 	</modules>
 </project>
