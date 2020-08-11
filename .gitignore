@@ -30,7 +30,7 @@ target/*
 .factorypath
 *.properties
 *.lst
-**/**.iml
 *.iml
+microservice.iml
 .settings
 **.MF
