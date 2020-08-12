@@ -15,7 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.dy.api.utils.JsonResult;
 import com.dy.authorization.properties.SecurityConstants;
-import com.dy.authorization.utils.AuthorizationUtil;
+import com.dy.authorization.wrapper.RequestWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -38,20 +38,23 @@ public class AuthCodeFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		try {
-			if (AuthorizationUtil.isJSONLogin(request) && isDecrypt(request))
-				filterChain.doFilter(new RequestWrapper(request), response);
-			else
-				filterChain.doFilter(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-			response.setContentType("application/json;charset=UTF-8");
+		if (isDecrypt(request)) {
 			try {
-				response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(e.getMessage())));
-			} catch (IOException ie) {
-				ie.printStackTrace();
+				RequestWrapper requestWrapper = new RequestWrapper(request);
+				requestWrapper.decrypt();
+				filterChain.doFilter(requestWrapper, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+				response.setContentType("application/json;charset=UTF-8");
+				try {
+					response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(e.getMessage())));
+				} catch (IOException ie) {
+					ie.printStackTrace();
+				}
 			}
+		} else {
+			filterChain.doFilter(request, response);
 		}
 	}
 

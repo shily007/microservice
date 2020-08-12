@@ -6,7 +6,6 @@ import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.tomcat.websocket.AuthenticationException;
@@ -28,7 +27,6 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.stereotype.Component;
 
 import com.dy.api.utils.JsonResult;
-import com.dy.authorization.utils.AuthorizationUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -55,10 +53,9 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {
 		logger.info("登录成功！");
-		if (AuthorizationUtil.isJSONLogin(request)) {
-			response.setContentType("application/json;charset=UTF-8");
-		}
 		try {
+//			if (AuthorizationUtil.isJSONLogin(request)) {
+			response.setContentType("application/json;charset=UTF-8");
 			String header = request.getHeader("Authorization");
 			/* BasicAuthenticationFilter */
 			if (!StringUtils.isNotBlank(header) || !header.startsWith("Basic "))
@@ -82,13 +79,32 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 					clientDetails.getScope(), "password");
 			OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
 			OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
-			OAuth2AccessToken token = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);			
-			if (AuthorizationUtil.isJSONLogin(request)) {
-				response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(token)));
-			} else {
-				HttpSession session = request.getSession();
-				session.setAttribute("Authorization", token);
-			}
+			OAuth2AccessToken token = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
+
+			response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(token)));
+//			} else {
+//				/* BasicAuthenticationFilter */
+//				String clientId = "internet_plus";
+//				String clientSecret = "internet_plus";
+//				ClientDetails clientDetails = null;
+//				try {
+//					clientDetails = clientDetailsService.loadClientByClientId(clientId);
+//				} catch (NoSuchClientException e) {
+//					throw new AuthenticationException("clientId对应的配置信息不存在：" + clientId);
+//				}
+//
+//				if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret))
+//					throw new AuthenticationException("clientSecret对应的配置信息不存在：" + clientSecret);
+//
+//				TokenRequest tokenRequest = new TokenRequest(new HashMap<String, String>(), clientId,
+//						clientDetails.getScope(), "password");
+//				OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
+//				OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
+//				OAuth2AccessToken token = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
+//
+//				HttpSession session = request.getSession();
+//				session.setAttribute("access_token", token);
+//			}
 		} catch (Exception e) {
 			response.setStatus(HttpStatus.OK.value());
 			response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(e.getMessage())));

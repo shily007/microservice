@@ -117,6 +117,5 @@
 		<module>microservice-authorization-core</module>
 		<module>microservice-authorization-server</module>
 		<module>microservice-authorization-browser</module>
-		<module>microservice-authorization-app</module>
 	</modules>
 </project>

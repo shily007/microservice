@@ -23,25 +23,40 @@ public class ActionFilter extends OncePerRequestFilter {
 
 	@Autowired
 	PasswordEncoder encoder;
-	private final String[] swaggerurls = {".css", ".js", "swagger", "webjars", "v2",".html","publicKey","file","show"};
+	private final String[] swaggerurls = { ".css", ".js", "swagger", "webjars", "v2", ".html", "publicKey", "file",
+			"show" };
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		if (!isSwagger(request.getRequestURI())) {
-			checkAuthority(request,response,filterChain);
+			checkAuthority(request, response, filterChain);
 		}
+//		try {
+//			
+//			HttpSession session = request.getSession();
+//			Object obj = session.getAttribute("access_token");
+//			if (obj != null) {
+//				RequestWrapper requestWrapper = new RequestWrapper(request);
+//				requestWrapper.addParameter("access_token", new String[] { "" + obj });
+//				filterChain.doFilter(requestWrapper, response);
+//				return;
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		filterChain.doFilter(request, response);
 	}
 
 	/**
 	 * 检查权限
+	 * 
 	 * @param request
 	 * @param response
 	 * @param filterChain
 	 */
 	protected void checkAuthority(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
-		
+
 	}
 
 	/**

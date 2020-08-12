@@ -9,9 +9,9 @@ spring:
 #  security: #    user:#      name: ENC(+8Qi/AE8/qMVBp/cfbK21Q==)#      password: ENC(x8RkFh6daB/KpSO8pB9pjQ==)
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/microservice?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=Hongkong
+    url: jdbc:mysql://192.168.2.111:3306/microservice?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=Hongkong
     username: root
-    password: dy123456
+    password: centos7
     continue-on-error: false
     name: MYSQL
     platform: all
@@ -35,14 +35,15 @@ eureka:
   instance:
     instance-id: ${spring.application.name}
     prefer-ip-address: true     #访问路径可以显示IP地址     metadata-map:
-      user.name: ENC(+8Qi/AE8/qMVBp/cfbK21Q==)
-      user.password: ENC(x8RkFh6daB/KpSO8pB9pjQ==)
+      user.name: admin
+      user.password: 123456
       
-#com: 
-#  dy: 
-#    security: 
-#      browser: 
-#        loginType: REDIRECT
+com: 
+  dy: 
+    security: 
+      browser: 
+        loginType: REDIRECT
+        logout-url: /
 
       
 #本服务的说明 
