@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.dy.authorization.properties;
+package com.dy.authorization.browser;
 
 /**
  * 

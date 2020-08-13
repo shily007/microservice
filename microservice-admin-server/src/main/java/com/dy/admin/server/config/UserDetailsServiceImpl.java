@@ -1,4 +1,4 @@
-package com.dy.authorization.browser.config;
+package com.dy.admin.server.config;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
