@@ -13,6 +13,7 @@ import lombok.experimental.Accessors;
 public class Oauth2Properties {
 	
 	private Oauth2ClientProperties[] clients = {};
-	private String jwtSigningKey = "dy";
+	private String jwtSigningKey = "dy"; //签名
+	
 
 }

@@ -41,8 +41,8 @@ eureka:
 com: 
   dy: 
     security: 
-      browser: 
-        loginType: REDIRECT
+      loginType: REDIRECT
+      browser:        
         logout-url: /
 
       

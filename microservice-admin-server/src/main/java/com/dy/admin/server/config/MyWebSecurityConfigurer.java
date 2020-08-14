@@ -51,7 +51,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http
         .authorizeRequests()
-            .antMatchers("/resources/**", "/signup", "/about").permitAll()
+            .antMatchers("/resources/**", "/signup", "/about","/instances/**").permitAll()
             .antMatchers("/admin/**").hasRole("ADMIN")
             .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
             .anyRequest().authenticated()
