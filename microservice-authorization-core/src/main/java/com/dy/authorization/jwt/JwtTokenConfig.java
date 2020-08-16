@@ -9,6 +9,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import com.dy.authorization.properties.SecurityConstants;
+
 /**
  * jwtToken相关配置
  * @author dy
@@ -26,7 +28,7 @@ public class JwtTokenConfig {
 	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter() {
 		JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-		accessTokenConverter.setSigningKey("123");
+		accessTokenConverter.setSigningKey(SecurityConstants.JWT_SIGNING_KEY);
 		return accessTokenConverter;
 	}
 	

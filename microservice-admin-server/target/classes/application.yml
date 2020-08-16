@@ -6,17 +6,8 @@ spring:
     name: "microservice-admin-server"
   main:
     allow-bean-definition-overriding: true
-#  security: #    user:#      name: ENC(+8Qi/AE8/qMVBp/cfbK21Q==)#      password: ENC(x8RkFh6daB/KpSO8pB9pjQ==)
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.2.111:3306/microservice?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=Hongkong
-    username: root
-    password: centos7
-    continue-on-error: false
-    name: MYSQL
-    platform: all
-  jmx:
-    enabled: false
+  boot:    admin:      monitor:        status-interval: 5000 #每5秒更新client的状态
+#      instance-proxy:#        ignored-headers:#        - ""
         
 management:
   endpoints:
@@ -30,21 +21,13 @@ management:
 eureka: 
   client: #客户端注册进eureka服务列表内
     service-url:     
-      defaultZone: http://admin:123456@localhost:7001/eureka/ 
+      defaultZone: ENC(e9qKnB2ANTJmCS8kfF3ZvQC2THlPdaOdoIplsMxRR21Dx/iVnyxLa4pP+CupBwg4flXb1LTAWXw=) 
 #       defaultZone: http://eureka7001.com:7001/eureka/ #,http://eureka7002.com:7002/eureka/,  http://eureka7003.com:7003/eureka/ 
   instance:
     instance-id: ${spring.application.name}
     prefer-ip-address: true     #访问路径可以显示IP地址     metadata-map:
-      user.username: admin
-      user.password: 123456
-      
-com: 
-  dy: 
-    security: 
-      loginType: REDIRECT
-      browser:        
-        logout-url: /
-
+      user.name: ENC(+8Qi/AE8/qMVBp/cfbK21Q==)
+      user.password: ENC(x8RkFh6daB/KpSO8pB9pjQ==)
       
 #本服务的说明 
 info: 

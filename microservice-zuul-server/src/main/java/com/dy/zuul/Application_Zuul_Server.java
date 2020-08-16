@@ -8,6 +8,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.netflix.zuul.EnableZuulServer;
 
+import com.dy.utils.jasypt.JasyptConstants;
+
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 @EnableZuulServer
 @EnableDiscoveryClient
@@ -15,6 +17,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulServer;
 public class Application_Zuul_Server {
 
 	public static void main(String[] args) {
+		System.setProperty("jasypt.encryptor.password", JasyptConstants.JASYPT_ENCRYPTOR_PASSWORD);
 		SpringApplication.run(Application_Zuul_Server.class, args);
 	}
 

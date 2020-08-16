@@ -3,12 +3,16 @@ server:
   port: 1000
 
 spring:
-  application:    name: Cloud-Authorization-Server
+  application:    name: microservice-authorization-server
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.2.111:3306/cloud?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=Hongkong
+#    url: jdbc:mysql://192.168.2.111:3306/cloud?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=Hongkong
+#    username: root
+#    password: centos7
+    
+    url: jdbc:mysql://localhost:3306/microservice?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=Hongkong
     username: root
-    password: centos7
+    password: dy123456
     continue-on-error: false
     name: MYSQL
     platform: all
@@ -41,56 +45,20 @@ spring:
 eureka: 
   client: #客户端注册进eureka服务列表内
     service-url:
-      defaultZone: http://admin:123456@localhost:7001/eureka/
+      defaultZone: ENC(e9qKnB2ANTJmCS8kfF3ZvQC2THlPdaOdoIplsMxRR21Dx/iVnyxLa4pP+CupBwg4flXb1LTAWXw=) 
 #       defaultZone: http://eureka7001.com:7001/eureka/ #,http://eureka7002.com:7002/eureka/,  http://eureka7003.com:7003/eureka/ 
   instance:
     instance-id: ${spring.application.name}
     prefer-ip-address: true     #访问路径可以显示IP地址 
-    metadata-map:
-      user.name: admin
-      user.password: TwjyySf4FQEzoqeGctmsr0E6z6yOpOMY6qA9dA1BryFZGMZAaj0oOzj5kTYuRbm8QTaQwzX+j68BOyzjs4yPxj9w9VVoMg6jXbH0E3JqHHdExEnd6DArudmu0M2kPoSdM8pAvpK7znvwWanZ0CQgtMZv7aH/UkN/AXNVQZSnKBk=
-    
+#    metadata-map:
+#      user.name: ENC(+8Qi/AE8/qMVBp/cfbK21Q==)
+#      user.password: ENC(x8RkFh6daB/KpSO8pB9pjQ==)
+      
 management:
   endpoints:
     web:
       exposure:
        include: "*" 
-
-#验证码设置
-#com:
-#  dy:
-#    security:
-#      code:
-#        sms:
-#          length: 6
-#          expireIn: 300
-#          interval: 60
-#          url: /bindMobile/**,/upMobile/**,/validateCode/sms
-#        email:
-#          length: 6
-#          expireIn: 300
-#          interval: 60
-#          url: /bindEmail/**,/upEmail/**,/validateCode/email
-#        image:
-#          length: 4
-#          expireIn: 300
-#          url: /loginll
-#      social:
-#        filterProcessesUrl: /qqLogin
-#        qq:
-#          app-id: wxd99431bbff8305a0
-#          app-secret: 60f78681d063590a469f1b297feff3c4
-#        weixin:
-#          app-id: wxd99431bbff8305a0
-#          app-secret: 60f78681d063590a469f1b297feff3c4
-
-
-
-#file:
-#  upload:
-#    size: 100 #文件上传大小
-#    path: /home/project/bms  #文件存放路径
-
 
 logging:
   level:

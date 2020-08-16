@@ -112,4 +112,9 @@ public class SecurityConstants {
 			"/qqLogin/**", "/actuator", "/actuator/**", "/", "/turbine/*", "/turbine.*", "/**/hystrix.**", "/hystrix/*",
 			"/**/*.*.js", "/**/*.ico", "hystrix.stream&title=sys-consumer",
 			SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_EMAIL };
+	
+	/**
+	 * jwt签名key
+	 */
+	public static final String JWT_SIGNING_KEY = "microservices";
 }

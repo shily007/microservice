@@ -17,6 +17,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class Application_Provider {
 
 	public static void main(String[] args) {
+//		System.setProperty("jasypt.encryptor.password", JasyptConstants.JASYPT_ENCRYPTOR_PASSWORD);
 		SpringApplication.run(Application_Provider.class, args);
 	}
 

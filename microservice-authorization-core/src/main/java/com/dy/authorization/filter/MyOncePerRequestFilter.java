@@ -19,61 +19,53 @@ import com.dy.authorization.wrapper.RequestWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * 验证码过滤器
- * 
+ * @Title MyOncePerRequestFilter
+ * @Description 自定义过滤器
  * @author dy
- *
+ * @date 2019年11月29日
  */
-@Component("authCodeFilter")
-public class AuthCodeFilter extends OncePerRequestFilter {
+@Component("myOncePerRequestFilter")
+public class MyOncePerRequestFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private ObjectMapper objectMapper;
-
-	@Override
-	public void afterPropertiesSet() throws ServletException {
-		super.afterPropertiesSet();
-	}
-
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		if (isDecrypt(request)) {
-			try {
+		try {     
+			if(isDecrypt(request)) {
 				RequestWrapper requestWrapper = new RequestWrapper(request);
 				requestWrapper.decrypt();
 				filterChain.doFilter(requestWrapper, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-				response.setContentType("application/json;charset=UTF-8");
-				try {
-					response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(e.getMessage())));
-				} catch (IOException ie) {
-					ie.printStackTrace();
-				}
+			}else {
+				filterChain.doFilter(request, response);
 			}
-		} else {
-			filterChain.doFilter(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			response.setContentType("application/json;charset=UTF-8");
+			try {
+				response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<Object>(e.getMessage())));
+			} catch (IOException ie) {
+				ie.printStackTrace();
+			}
 		}
 	}
-
+	
 	/**
 	 * @Description 判断是否需要解密操作
 	 * @param request
-	 * @return
+	 * @return 
 	 * @author dy
 	 * @date 2019年12月13日
 	 */
 	private boolean isDecrypt(HttpServletRequest request) {
-		Map<String, String[]> parameterMap = request.getParameterMap();
-		if (parameterMap != null && parameterMap.size() > 0) {
-			for (int i = 0; i < SecurityConstants.NEED_DECRYPT_PARAMS.length; i++) {
-				if (parameterMap.containsKey(SecurityConstants.NEED_DECRYPT_PARAMS[i]))
-					return true;
-			}
-		}
+		for (int i = 0; i < SecurityConstants.NEED_DECRYPT_PARAMS.length; i++) {
+			Map<String, String[]> parameterMap = request.getParameterMap();
+        	if(parameterMap.containsKey(SecurityConstants.NEED_DECRYPT_PARAMS[i])) 
+        		return true;
+		} 
 		return false;
 	}
-
 }

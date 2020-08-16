@@ -1,4 +1,4 @@
-package com.dy.eureka;
+package com.dy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

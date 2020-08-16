@@ -1,5 +1,5 @@
 server:
-  port: 8002
+  port: 8001
   
 spring: 
   application:    name: "microservice-common-provider"
@@ -9,7 +9,7 @@ spring:
 eureka: 
   client: #客户端注册进eureka服务列表内
     service-url: 
-      defaultZone: http://user:111@localhost:7001/eureka/ 
+      defaultZone: ENC(/I61py2c3LIqOAvZmF6pydpTtN1X0W9IScWU4fhvYxLL4durx4CFAeT1y5f1U7oEkrd4hQ6ygfE=) 
 #       defaultZone: http://eureka7001.com:7001/eureka/ #,http://eureka7002.com:7002/eureka/,  http://eureka7003.com:7003/eureka/ 
   instance:
     instance-id: "microservice-common-provider"

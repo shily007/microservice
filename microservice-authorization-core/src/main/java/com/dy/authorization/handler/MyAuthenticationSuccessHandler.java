@@ -55,10 +55,10 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {
 		logger.info("登录成功！");
-		try {
-			if (securityProperties.getLoginType() == LoginType.JSON) {
-				response.setContentType("application/json;charset=UTF-8");
-				String header = request.getHeader("Authorization");
+		if (securityProperties.getLoginType() == LoginType.JSON) {
+			response.setContentType("application/json;charset=UTF-8");
+			String header = request.getHeader("Authorization");
+			try {
 				/* BasicAuthenticationFilter */
 				if (!StringUtils.isNotBlank(header) || !header.startsWith("Basic "))
 					throw new AuthenticationException("请求头无信息！");
@@ -84,12 +84,12 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 				OAuth2AccessToken token = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
 
 				response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(token)));
-			} else {
-				super.onAuthenticationSuccess(request, response, authentication);
+			} catch (Exception e) {
+				response.setStatus(HttpStatus.OK.value());
+				response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(e.getMessage())));
 			}
-		} catch (Exception e) {
-			response.setStatus(HttpStatus.OK.value());
-			response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(e.getMessage())));
+		} else {
+			super.onAuthenticationSuccess(request, response, authentication);
 		}
 	}
 
@@ -118,5 +118,5 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 		}
 		return new String[] { token.substring(0, delim), token.substring(delim + 1) };
 	}
-
+	
 }

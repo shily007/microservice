@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
-import com.dy.authorization.properties.SecurityConstants;
+import com.dy.utils.jasypt.JasyptConstants;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Application_Authorization_Server {
 	
 	public static void main(String[] args) {
-		System.setProperty("jasypt.encryptor.password", SecurityConstants.JASYPT_ENCRYPTOR_PASSWORD);
+		System.setProperty("jasypt.encryptor.password", JasyptConstants.JASYPT_ENCRYPTOR_PASSWORD);
 		SpringApplication.run(Application_Authorization_Server.class, args);
 	}
 	
