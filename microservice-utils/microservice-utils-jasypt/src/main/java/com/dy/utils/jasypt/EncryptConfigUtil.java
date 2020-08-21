@@ -7,7 +7,8 @@ public class EncryptConfigUtil {
 	public static void main(String[] args) {
 
 		String password = JasyptConstants.JASYPT_ENCRYPTOR_PASSWORD;
-		String data = "http://admin:123456@localhost:7001/eureka/";
+//		String data = "http://admin:123456@localhost:7001/eureka/";
+		String data = "http://admin:123456@139.155.40.178:7001/eureka/";
 
 		PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
 		SimpleStringPBEConfig config = new SimpleStringPBEConfig();

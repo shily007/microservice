@@ -1,0 +1,29 @@
+server:
+  port: 6001
+  
+spring: 
+  application:
+    name: "@project.artifactId@"
+      
+eureka: 
+  client: #客户端注册进eureka服务列表内
+    service-url: 
+      defaultZone: ENC(/I61py2c3LIqOAvZmF6pydpTtN1X0W9IScWU4fhvYxLL4durx4CFAeT1y5f1U7oEkrd4hQ6ygfE=) 
+#       defaultZone: http://localhost:7001/eureka/ #,http://eureka7002.com:7002/eureka/,  http://eureka7003.com:7003/eureka/ 
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true     #访问路径可以显示IP地址 
+    
+turbine:
+  aggregator:
+    cluster-config: default
+  app-config: microservice-common-consumer,microservice-common-provider
+  cluster-name-expression: new String("default")
+    
+#本服务的说明 
+info: 
+  app.name: ${spring.application.name}
+  company.name: www.dy.com
+  build.artifactId: "@project.artifactId@"
+  build.version: "@project.version@"
+  build.url: http://139.155.40.178:6001/turbine.stream

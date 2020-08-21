@@ -1,0 +1,48 @@
+server:
+  port: 83
+  
+spring:
+  application:
+    name: microservice-common-consumer
+  main:    allow-bean-definition-overriding: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.2.111:3306/baidu/uid-generator?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=Hongkong
+    username: root
+    password: centos7
+    
+mybatis:  mapper-locations: classpath:mapper/*.xml
+
+eureka: 
+  client: #客户端注册进eureka服务列表内
+    service-url: 
+#      defaultZone: ENC(/I61py2c3LIqOAvZmF6pydpTtN1X0W9IScWU4fhvYxLL4durx4CFAeT1y5f1U7oEkrd4hQ6ygfE=)  
+      defaultZone: ENC(Vc2+db9YK6J+YbmdpIfjJFNZKuCgpmcilhDqAzJT4R/lXxE+nvkBNHoOXf+EwvHAib7DA14ssz8=)
+  instance:
+    instance-id: "@project.artifactId@"
+    prefer-ip-address: true     #访问路径可以显示IP地址 
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        
+feign: 
+  hystrix: 
+    enabled: true
+    
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: true
+#        isolation:
+#          strategy: S
+    
+info: 
+  app.name: "@project.artifactId@"
+  company.name: www.dy.com
+  build.artifactId: "@project.artifactId@"
+  build.version: "@project.version@"
