@@ -9,5 +9,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>microservice-utils-jasypt</module>
+  	<module>microservice-utils-mail</module>
   </modules>
 </project>

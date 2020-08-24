@@ -1,0 +1,6 @@
+com:  dy:    mail: 
+      subject: service outage!!!  #邮件主题
+      receivers: 752401007@qq.com,891713908@qq.com  #固定接收人群
+      max-count: 50 #单次最大群发数
+      retry-count: 3 #发送失败重发次数
+    

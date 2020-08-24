@@ -9,8 +9,8 @@ spring:
 eureka: 
   client: #客户端注册进eureka服务列表内
     service-url: 
-#      defaultZone: ENC(/I61py2c3LIqOAvZmF6pydpTtN1X0W9IScWU4fhvYxLL4durx4CFAeT1y5f1U7oEkrd4hQ6ygfE=)  
-      defaultZone: ENC(Vc2+db9YK6J+YbmdpIfjJFNZKuCgpmcilhDqAzJT4R/lXxE+nvkBNHoOXf+EwvHAib7DA14ssz8=)
+      defaultZone: ENC(/I61py2c3LIqOAvZmF6pydpTtN1X0W9IScWU4fhvYxLL4durx4CFAeT1y5f1U7oEkrd4hQ6ygfE=)  
+#      defaultZone: ENC(Vc2+db9YK6J+YbmdpIfjJFNZKuCgpmcilhDqAzJT4R/lXxE+nvkBNHoOXf+EwvHAib7DA14ssz8=)
   instance:
     instance-id: "@project.artifactId@"
     prefer-ip-address: true     #访问路径可以显示IP地址 

@@ -6,6 +6,12 @@ spring:
     name:  "@project.artifactId@"
   main: 
     allow-bean-definition-overriding: true
+  mail:    host: smtp.qq.com
+    port: 465
+    username: 891713908@qq.com
+    password: ljvzqmyklxjubdgd
+    default-encoding: UTF-8
+    properties:      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
         
 management:
   endpoints:
@@ -28,6 +34,12 @@ eureka:
 #      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
   server:
     enable-self-preservation: false        # 为false禁用eureka的自我保护机制    eviction-interval-timer-in-ms: 4000
+    
+com:  dy:    mail: 
+      subject: service outage!!!  #邮件主题
+      receivers: 752401007@qq.com,891713908@qq.com  #固定接收人群
+      max-count: 50 #单次最大群发数
+      retry-count: 3 #发送失败重发次数
     
 #本服务的说明 
 info: 
