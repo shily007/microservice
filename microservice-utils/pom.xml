@@ -10,5 +10,6 @@
   <modules>
   	<module>microservice-utils-jasypt</module>
   	<module>microservice-utils-mail</module>
+  	<module>microservice-utils-redis</module>
   </modules>
 </project>

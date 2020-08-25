@@ -12,7 +12,11 @@ spring:
     password: ljvzqmyklxjubdgd
     default-encoding: UTF-8
     properties:      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
-        
+  redis:#    host: 192.168.2.111
+#    port: 6379
+    cluster:      nodes: 192.168.2.111:6379
+      max-redirects: 1
+  
 management:
   endpoints:
     web:

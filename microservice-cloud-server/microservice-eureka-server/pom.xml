@@ -26,6 +26,11 @@
 			<artifactId>microservice-utils-mail</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.dy</groupId>
+			<artifactId>microservice-utils-redis</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
