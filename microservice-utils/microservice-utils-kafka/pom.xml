@@ -7,11 +7,15 @@
 		<artifactId>microservice-utils</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>microservice-utils-mail</artifactId>
+	<artifactId>microservice-utils-kafka</artifactId>
 	<dependencies>
 		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 	</dependencies>
 </project>

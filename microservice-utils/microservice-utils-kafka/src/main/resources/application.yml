@@ -1,0 +1,11 @@
+server:
+  port: 80
+  
+spring:
+  application:
+    name:  "@project.artifactId@"
+  main: 
+    allow-bean-definition-overriding: true
+  kafka:    bootstrap-servers: 192.168.2.110:9092,192.168.2.111:9092,192.168.2.112:9092
+    consumer:      group-id: test-consumer
+      auto-offset-reset: latest

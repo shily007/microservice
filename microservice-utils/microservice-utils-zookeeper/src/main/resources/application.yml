@@ -1,0 +1,12 @@
+server:  port: 1111  
+zookeeper:
+  #每次重试时间间隔，单位毫秒
+  base-sleep-time-ms: 1000
+  #重试次数
+  max-retries: 3
+  #zookeeper服务连接id与端口
+  connect-string: 192.168.2.110:2181,192.168.2.111:2181,192.168.2.112:2181
+  #会话超时时间，单位毫秒
+  session-timeout-ms: 5000
+  #连接创建超时时间，单位毫秒
+  connection-timeout-ms: 5000

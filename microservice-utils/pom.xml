@@ -11,5 +11,7 @@
   	<module>microservice-utils-jasypt</module>
   	<module>microservice-utils-mail</module>
   	<module>microservice-utils-redis</module>
+  	<module>microservice-utils-kafka</module>
+  	<module>microservice-utils-zookeeper</module>
   </modules>
 </project>
