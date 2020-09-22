@@ -1,321 +1,213 @@
 package com.dy.api.base;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
-import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
-import com.baomidou.mybatisplus.extension.conditions.update.UpdateChainWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 
-@RestController
-@RequestMapping
-public interface BaseService<T extends BaseEntity> {
+public interface BaseService<T> {
 
 	/**
-	 * 保存对象 save
+	 * 默认一次批量保存数据的条数
+	 */
+	int DEFAULT_BATCH_SIZE = 1000;
+
+	/**
+	 * insert
 	 * 
 	 * @param entity
-	 * @return boolean
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
-	@PostMapping("save")
-	boolean save(@RequestBody T entity);
-
-	/**
-	 * 批量保存对象 saveBatch
-	 * 
-	 * @param entityList
-	 * @return boolean
-	 * @author dy 2020年7月13日
-	 */
-	@PostMapping("saveBatch")
-	default boolean saveBatch(Collection<T> entityList) {
-		return saveBatch(entityList, 1000);
+	@PostMapping("insert")
+	default boolean insert(T entity) {
+		return insertBatch(Arrays.asList(entity));
 	}
 
 	/**
-	 * 批量保存对象并指定每次保存的数量 saveBatch
+	 * 批量插入 insertBatch
+	 * 
+	 * @param entityList
+	 * @return
+	 * @author dy 2020年9月22日
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@PostMapping("insertBatch")
+	default boolean insertBatch(Collection<T> entityList) {
+		return insertBatch(entityList, DEFAULT_BATCH_SIZE);
+	}
+
+	/**
+	 * 批量插入 insertBatch
 	 * 
 	 * @param entityList
 	 * @param batchSize
-	 * @return boolean
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
-	@PostMapping("saveBatch/batchSize")
-	boolean saveBatch(Collection<T> entityList, @RequestParam int batchSize);
+	@PostMapping("insertBatch/batchSize")
+	boolean insertBatch(Collection<T> entityList, int batchSize);
 
 	/**
-	 * 根据id删除对象 removeById
+	 * 根据id删除 removeById
 	 * 
 	 * @param id
-	 * @return boolean
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
 	@DeleteMapping("removeById")
-	boolean removeById(@RequestParam Serializable id);
-
-	/**
-	 * 根据字段删除对象 removeByMap
-	 * 
-	 * @param columnMap
-	 * @return boolean
-	 * @author dy 2020年7月13日
-	 */
-	@DeleteMapping("removeByMap")
-	boolean removeByMap(Map<String, Object> columnMap);
-
-	/**
-	 * 根据条件删除对象 remove
-	 * 
-	 * @param queryWrapper
-	 * @return boolean
-	 * @author dy 2020年7月13日
-	 */
-	@DeleteMapping("remove")
-	boolean remove(Wrapper<T> queryWrapper);
+	default boolean removeById(Serializable id) {
+		return removeByIds(Arrays.asList(id));
+	}
 
 	/**
 	 * 根据id批量删除 removeByIds
 	 * 
 	 * @param idList
-	 * @return boolean
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
 	@DeleteMapping("removeByIds")
 	boolean removeByIds(Collection<? extends Serializable> idList);
 
 	/**
-	 * 根据id修改对象 updateById
+	 * 根据id修改 updateById
 	 * 
 	 * @param entity
-	 * @return boolean
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
 	@PutMapping("updateById")
-	boolean updateById(T entity);
-
-	/**
-	 * 根据条件修改 update
-	 * 
-	 * @param updateWrapper
-	 * @return boolean
-	 * @author dy 2020年7月13日
-	 */
-	@PutMapping("update/updateWrapper")
-	boolean update(Wrapper<T> updateWrapper);
+	default boolean updateById(T entity) {
+		return updateBatchById(Arrays.asList(entity));
+	}
 
 	/**
 	 * 根据id批量修改 updateBatchById
 	 * 
 	 * @param entityList
-	 * @return boolean
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	@PutMapping("updateBatchById")
 	default boolean updateBatchById(Collection<T> entityList) {
-		return updateBatchById(entityList, 1000);
+		return updateBatchById(entityList, DEFAULT_BATCH_SIZE);
 	}
 
 	/**
-	 * 根据id批量修改并指定一次修改多少条 updateBatchById
+	 * 根据id批量修改 updateBatchById
 	 * 
 	 * @param entityList
 	 * @param batchSize
-	 * @return boolean
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
-	@PutMapping("updateBatchById/batchSize")
-	boolean updateBatchById(Collection<T> entityList, @RequestParam int batchSize);
+	@PutMapping("updateBatchById/size")
+	boolean updateBatchById(Collection<T> entityList, int batchSize);
 
 	/**
 	 * 根据id查询 getById
 	 * 
 	 * @param id
-	 * @return T
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	@GetMapping("getById")
-	T getById(@RequestParam Serializable id);
+	default T getById(Serializable id) {
+		return listByIds(Arrays.asList(id)).get(0);
+	}
 
 	/**
 	 * 根据id集合查询 listByIds
 	 * 
 	 * @param idList
-	 * @return Collection<T>
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
 	@GetMapping("listByIds")
-	Collection<T> listByIds(@RequestBody Collection<? extends Serializable> idList);
+	List<T> listByIds(Collection<? extends Serializable> idList);
 
 	/**
-	 * 根据字段查询 listByMap
-	 * 
-	 * @param columnMap
-	 * @return Collection<T>
-	 * @author dy 2020年7月13日
-	 */
-	@GetMapping("listByMap")
-	Collection<T> listByMap(@RequestBody Map<String, Object> columnMap);
-
-	/**
-	 * 获取唯一对象 getOne
+	 * 根据条件查询唯一 getOne
 	 * 
 	 * @param queryWrapper
-	 * @param throwEx
-	 * @return T
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
-	@GetMapping("getOne/throwEx")
-	T getOne(@RequestBody Wrapper<T> queryWrapper);
+	@GetMapping("getOne")
+	T getOne(Wrapper<T> queryWrapper);
 
 	/**
 	 * 
-	 * getMap
+	 * count
 	 * 
-	 * @param queryWrapper
-	 * @return Map<String, Object>
-	 * @author dy 2020年7月13日
-	 */
-	@GetMapping("getMap")
-	Map<String, Object> getMap(@RequestBody Wrapper<T> queryWrapper);
-
-	/**
-	 * 查数量 count
-	 * 
-	 * @param queryWrapper
-	 * @return int
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
 	@GetMapping("count")
-	int count(@RequestBody Wrapper<T> queryWrapper);
+	default int count() {
+		return count(Wrappers.emptyWrapper());
+	}
 
 	/**
-	 * 查询 list
+	 * 
+	 * count
 	 * 
 	 * @param queryWrapper
-	 * @return List<T>
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
+	 */
+	@GetMapping("count/wrapper")
+	int count(Wrapper<T> queryWrapper);
+
+	/**
+	 * 
+	 * list
+	 * 
+	 * @param queryWrapper
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
 	@GetMapping("list")
-	List<T> list(@RequestBody Wrapper<T> queryWrapper);
+	List<T> list(Wrapper<T> queryWrapper);
 
 	/**
-	 * 分页查询 page
 	 * 
+	 * page
+	 * 
+	 * @param <E>
 	 * @param page
 	 * @param queryWrapper
-	 * @return IPage<T>
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
-	@PostMapping("page/queryWrapper")
-	IPage<T> page(@RequestParam long current, @RequestParam long size, @RequestBody Wrapper<T> queryWrapper);
+	@GetMapping("page/wrapper")
+	<E extends IPage<T>> E page(E page, Wrapper<T> queryWrapper);
 
 	/**
-	 * 分页查询 page
 	 * 
+	 * page
+	 * 
+	 * @param <E>
 	 * @param page
-	 * @return IPage<T>
-	 * @author dy 2020年7月13日
+	 * @return
+	 * @author dy 2020年9月22日
 	 */
-	@PostMapping("page")
-	Page<T> page(Page<T> page);
-
-	/**
-	 * 
-	 * listMaps
-	 * 
-	 * @param queryWrapper
-	 * @return List<Map<String, Object>>
-	 * @author dy 2020年7月13日
-	 */
-	@GetMapping("listMaps")
-	List<Map<String, Object>> listMaps(@RequestBody Wrapper<T> queryWrapper);
-
-	/**
-	 * 
-	 * pageMaps
-	 * 
-	 * @param page
-	 * @param queryWrapper
-	 * @return IPage<Map<String, Object>>
-	 * @author dy 2020年7月13日
-	 */
-	@GetMapping("pageMaps")
-	IPage<Map<String, Object>> pageMaps(@RequestParam long current, @RequestParam long size,
-                                        @RequestBody Wrapper<T> queryWrapper);
-
-	/**
-	 * 
-	 * getBaseMapper
-	 * 
-	 * @return BaseMapper<T>
-	 * @author dy 2020年7月13日
-	 */
-	@GetMapping("getBaseMapper")
-	BaseMapper<T> getBaseMapper();
-
-	/**
-	 * 
-	 * query
-	 * 
-	 * @return QueryChainWrapper<T>
-	 * @author dy 2020年7月13日
-	 */
-	@GetMapping("query")
-	default QueryChainWrapper<T> query() {
-		return new QueryChainWrapper<>(getBaseMapper());
-	}
-
-	/**
-	 * 
-	 * lambdaQuery
-	 * 
-	 * @return LambdaQueryChainWrapper<T>
-	 * @author dy 2020年7月13日
-	 */
-	@GetMapping("lambdaQuery")
-	default LambdaQueryChainWrapper<T> lambdaQuery() {
-		return new LambdaQueryChainWrapper<>(getBaseMapper());
-	}
-
-	/**
-	 * 
-	 * update
-	 * 
-	 * @return UpdateChainWrapper<T>
-	 * @author dy 2020年7月13日
-	 */
-	@GetMapping("updateWrapper")
-	default UpdateChainWrapper<T> updateWrapper() {
-		return new UpdateChainWrapper<>(getBaseMapper());
-	}
-
-	/**
-	 * 
-	 * lambdaUpdate
-	 * 
-	 * @return LambdaUpdateChainWrapper<T>
-	 * @author dy 2020年7月13日
-	 */
-	@GetMapping("lambdaUpdate")
-	default LambdaUpdateChainWrapper<T> lambdaUpdate() {
-		return new LambdaUpdateChainWrapper<>(getBaseMapper());
+	@GetMapping("page")
+	default <E extends IPage<T>> E page(E page) {
+		return page(page, Wrappers.emptyWrapper());
 	}
 
 }

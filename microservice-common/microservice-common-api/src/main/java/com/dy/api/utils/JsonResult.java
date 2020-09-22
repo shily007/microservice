@@ -1,5 +1,7 @@
 package com.dy.api.utils;
 
+import com.dy.api.base.CommonErrorMsg;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,28 +23,11 @@ public class JsonResult<T> {
 	private String msg;
 	private T data;
 	
-	public JsonResult(int code, String msg) {
+	public JsonResult(CommonErrorMsg errorMsg) {
 		super();
 		this.success = false;
-		this.code = code;
-		this.msg = msg;
-	}
-	
-	public JsonResult(boolean success,String msg) {
-		super();
-		this.success = success;
-		this.msg = msg;
-	}
-	
-	public JsonResult(int code) {
-		super();
-		this.code = code;
-	}
-	
-	public JsonResult(String msg) {
-		super();
-		this.success = false;
-		this.msg = msg;
+		this.code = errorMsg.getCode();
+		this.msg = errorMsg.getMsg();
 	}
 	
 	public JsonResult(T data) {

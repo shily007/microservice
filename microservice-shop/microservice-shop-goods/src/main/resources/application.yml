@@ -1,0 +1,38 @@
+server:
+  port: 8002
+  
+spring: 
+  application:    name: "@project.artifactId@"
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.2.111:3306/shop?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=Hongkong
+    username: root
+    password: centos7
+  kafka:
+    bootstrap-servers: 192.168.2.110:9092,192.168.2.111:9092,192.168.2.112:9092
+    consumer:
+      group-id: shop
+      auto-offset-reset: latest
+        
+eureka: 
+  client: #客户端注册进eureka服务列表内
+    service-url: 
+      defaultZone: ENC(Vc2+db9YK6J+YbmdpIfjJFNZKuCgpmcilhDqAzJT4R/lXxE+nvkBNHoOXf+EwvHAib7DA14ssz8=)
+#      defaultZone: ENC(/I61py2c3LIqOAvZmF6pydpTtN1X0W9IScWU4fhvYxLL4durx4CFAeT1y5f1U7oEkrd4hQ6ygfE=) 
+#       defaultZone: http://eureka7001.com:7001/eureka/ #,http://eureka7002.com:7002/eureka/,  http://eureka7003.com:7003/eureka/ 
+  instance:
+    instance-id: "@project.artifactId@"
+    prefer-ip-address: true     #访问路径可以显示IP地址 
+    
+feign:
+  hystrix:
+    enabled: true  
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      

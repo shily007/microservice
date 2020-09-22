@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-@FeignClient(name = "MICROSERVICE-PROVIDER",fallbackFactory = SayHelloServiceBack.class)
+@FeignClient(name = "MICROSERVICE-COMMON-PROVIDER",fallbackFactory = SayHelloServiceBack.class)
 @RequestMapping("say")
 public interface SayHelloService {
 	

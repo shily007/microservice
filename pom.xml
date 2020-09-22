@@ -115,5 +115,7 @@
 		<module>microservice-common</module>
 		<module>microservice-authorization</module>
 		<module>microservice-cloud-server</module>
+		<module>microservice-shop</module>
+		<module>VocationalSchool</module>
 	</modules>
 </project>

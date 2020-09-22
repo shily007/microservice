@@ -1,8 +1,9 @@
 package com.dy.api.service;
 
-import com.dy.api.utils.JsonResult;
 import org.springframework.stereotype.Component;
 
+import com.dy.api.base.CommonErrorMsg;
+import com.dy.api.utils.JsonResult;
 
 import feign.hystrix.FallbackFactory;
 
@@ -15,7 +16,7 @@ public class SayHelloServiceBack implements FallbackFactory<SayHelloService> {
 			
 			@Override
 			public JsonResult<String> sayHello() {
-				return new JsonResult<>(false,"error hello");
+				return new JsonResult<>(CommonErrorMsg.SERVICE_CALL_FAILED);
 			}
 		};
 	}

@@ -1,9 +1,11 @@
 package com.dy.api.config;
 
-import com.dy.api.utils.JsonResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.dy.api.base.CommonErrorMsg;
+import com.dy.api.utils.JsonResult;
 
 
 /**
@@ -18,7 +20,7 @@ public class ExceptionConfig {
 	@ExceptionHandler(value = Exception.class)
 	public JsonResult<Object> captrue(Exception e) {
 		e.printStackTrace();
-		return new JsonResult<>(500, e.getMessage());
+		return new JsonResult<>(CommonErrorMsg.FAIL);
 	}
 
 }
