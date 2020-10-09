@@ -34,3 +34,4 @@ target/*
 microservice.iml
 .settings
 **.MF
+*/node_modules/*
