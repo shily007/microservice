@@ -4,6 +4,7 @@ import AppStudentIndex from '@/pages/app/student/Index'
 import AppStudentMain from '@/pages/app/student/Main'
 import AppStudentHome from '@/pages/app/student/Home'
 import AppStudentUser from '@/pages/app/student/User'
+import AppStudentUser_info from '@/pages/app/student/info/Info'
 
 Vue.use(Router)
 
@@ -23,12 +24,32 @@ export default new Router({
         {
           path: '/app/student/home',
           name: 'AppStudentHome',
-          component: AppStudentHome
+          component: AppStudentHome,
+          meta:{
+            showFooter: false
+          }
         },
         {
           path: '/app/student/user',
           name: 'AppStudentUser',
-          component: AppStudentUser
+          component: AppStudentUser,
+          meta:{
+            showFooter: false
+          },
+          children:[
+            
+          ]
+        },
+        {
+          path: '/app/student/user/info',
+          name: 'AppStudentUser_info',
+          component: AppStudentUser_info,
+          meta:{
+            showFooter: false
+          },
+          children:[
+            
+          ]
         }
       ]
     }

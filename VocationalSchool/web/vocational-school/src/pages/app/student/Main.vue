@@ -22,6 +22,13 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(75, 152, 245, 1),
+    rgba(1, 32, 79, 1)
+  );
+  align-items: center;
+  justify-content: center;
 }
 #main_content{
 	position: absolute !important;
@@ -29,7 +36,7 @@ export default {
 	/* top: 40px !important; */
 	top: 0;
 	bottom: 56px;
-	width: 100%;
+	width: 94%;
 	overflow: hidden;
 	height: auto !important;
 	height: 100%;

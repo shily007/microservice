@@ -1,7 +1,8 @@
 <template>
-  <div class="boottom">
-    <img src="@/assets/logo_01.png" />
-    <span>{{ schoolName }}</span>
+  <div class="header">
+    <!-- <slot name="header_left"></slot> -->
+    <span class="header_title">{{ title }}</span>
+    <!-- <slot name="header_right"></slot> -->
   </div>
 </template>
 
@@ -9,24 +10,29 @@
 export default {
   data() {
     return {
-      schoolName: this.Global.schoolName,
+      schoolName: this.Global.schoolName
     };
   },
+  props: {
+    title: String
+  }
 };
 </script>
 
 <style>
-.boottom {
+.header {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: #2472C8;
+  justify-content: center;
+  align-content: center;
+  font-size: 20px;
+  padding: 10px;
 }
-.boottom > img {
+.header > img {
   height: 40px;
 }
-.boottom>span{
-  margin-left: 10px;
+.header > span {
   color: aliceblue;
 }
 </style>
