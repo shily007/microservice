@@ -26,8 +26,10 @@ export default {
   align-items: center;
   justify-content: center;
   align-content: center;
-  font-size: 20px;
-  padding: 10px;
+  font-size: 18px;
+  padding: 5px;
+  width: 100%;
+  border-bottom: 1px solid aliceblue;
 }
 .header > img {
   height: 40px;

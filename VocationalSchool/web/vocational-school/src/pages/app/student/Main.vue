@@ -32,14 +32,14 @@ export default {
 }
 #main_content{
 	position: absolute !important;
-	position: relative;
+	/* position: relative; */
 	/* top: 40px !important; */
 	top: 0;
 	bottom: 56px;
-	width: 94%;
-	overflow: hidden;
+	width: 100%;
+	/* overflow: hidden; */
 	height: auto !important;
-	height: 100%;
+	/* height: 100%; */
 }
 #main_bottom{
   position: absolute;

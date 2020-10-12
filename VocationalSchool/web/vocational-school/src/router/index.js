@@ -5,6 +5,10 @@ import AppStudentMain from '@/pages/app/student/Main'
 import AppStudentHome from '@/pages/app/student/Home'
 import AppStudentUser from '@/pages/app/student/User'
 import AppStudentUser_info from '@/pages/app/student/info/Info'
+import AppStudentUser_phone from '@/pages/app/student/info/Phone'
+import AppStudentUser_email from '@/pages/app/student/info/Email'
+import AppStudentUser_clazz from '@/pages/app/student/info/Clazz'
+import AppStudentUser_BaseInfo from '@/pages/app/student/info/BaseInfo'
 
 Vue.use(Router)
 
@@ -35,10 +39,7 @@ export default new Router({
           component: AppStudentUser,
           meta:{
             showFooter: false
-          },
-          children:[
-            
-          ]
+          }
         },
         {
           path: '/app/student/user/info',
@@ -46,10 +47,39 @@ export default new Router({
           component: AppStudentUser_info,
           meta:{
             showFooter: false
-          },
-          children:[
-            
-          ]
+          }
+        },
+        {
+          path: '/app/student/user/phone',
+          name: 'AppStudentUser_phone',
+          component: AppStudentUser_phone,
+          meta:{
+            showFooter: false
+          }
+        },
+        {
+          path: '/app/student/user/email',
+          name: 'AppStudentUser_email',
+          component: AppStudentUser_email,
+          meta:{
+            showFooter: false
+          }
+        },
+        {
+          path: '/app/student/user/clazz',
+          name: 'AppStudentUser_clazz',
+          component: AppStudentUser_clazz,
+          meta:{
+            showFooter: false
+          }
+        },
+        {
+          path: '/app/student/user/baseInfo',
+          name: 'AppStudentUser_BaseInfo',
+          component: AppStudentUser_BaseInfo,
+          meta:{
+            showFooter: false
+          }
         }
       ]
     }

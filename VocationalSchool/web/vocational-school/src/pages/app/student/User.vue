@@ -4,9 +4,9 @@
       <div class="user_head_01">
         <img class="user_head_img" src="@/assets/head.png" />
         <div class="user_head_text">
-          <span class="user_head_text_name">{{user.name}}</span>
+          <span class="user_head_text_name">{{ user.name }}</span>
           <span class="user_head_text_other">
-            个性签名：{{user.autograph}}
+            班级：{{ clazz.name }}
             <!-- 性别：{{user.gender}}&emsp; -->
             <!-- 民族：{{user.nation}}&emsp; -->
             <!-- 生日：{{user.birthday}} -->
@@ -14,19 +14,19 @@
         </div>
       </div>
       <div class="user_head_02">
-          <div class="user_head_02_item">
-            <span class="user_head_02_item_score">100</span>
-            <span class="user_head_02_item_type">操行分</span>
-          </div>
-          <div class="user_head_02_item">
-            <span class="user_head_02_item_score">99</span>
-            <span class="user_head_02_item_type">综合评分</span>          
-          </div>
-          <div class="user_head_02_item">
-            <span class="user_head_02_item_score">80</span>
-            <span class="user_head_02_item_type">学分</span>            
-          </div>
+        <div class="user_head_02_item">
+          <span class="user_head_02_item_score">100</span>
+          <span class="user_head_02_item_type">操行分</span>
         </div>
+        <div class="user_head_02_item">
+          <span class="user_head_02_item_score">99</span>
+          <span class="user_head_02_item_type">综合评分</span>
+        </div>
+        <div class="user_head_02_item">
+          <span class="user_head_02_item_score">80</span>
+          <span class="user_head_02_item_type">学分</span>
+        </div>
+      </div>
     </div>
     <div class="user_content">
       <div class="user_content_item" @click="info">
@@ -37,7 +37,7 @@
           <i class="el-icon-arrow-right"></i>
         </div>
       </div>
-      <div class="user_content_item">
+      <div class="user_content_item" @click="baseInfo">
         <div class="user_content_item_left">
           <span>基本资料</span>
         </div>
@@ -45,16 +45,29 @@
           <i class="el-icon-arrow-right"></i>
         </div>
       </div>
-      <div class="user_content_item">
+      <div class="user_content_item" @click="phone">
         <div class="user_content_item_left">
-          <span>手机号码</span>
+          <span>手机</span>
         </div>
         <div class="user_content_item_right">
-          <span>{{user.phone!=null&&user.phone!=''?user.phone:'绑定手机'}}</span>
+          <span>{{
+            user.phone != null && user.phone != "" ? user.phone : "绑定手机"
+          }}</span>
           <i class="el-icon-arrow-right"></i>
         </div>
       </div>
-      <div class="user_content_item">
+      <div class="user_content_item" @click="email">
+        <div class="user_content_item_left">
+          <span>邮箱</span>
+        </div>
+        <div class="user_content_item_right">
+          <span>{{
+            user.email != null && user.email != "" ? user.email : "绑定邮箱"
+          }}</span>
+          <i class="el-icon-arrow-right"></i>
+        </div>
+      </div>
+      <div class="user_content_item" @click="clazz">
         <div class="user_content_item_left">
           <span>班级信息</span>
         </div>
@@ -62,7 +75,7 @@
           <i class="el-icon-arrow-right"></i>
         </div>
       </div>
-      <div class="user_content_item">
+      <div class="user_content_item" @click="source">
         <div class="user_content_item_left">
           <span>生源信息</span>
         </div>
@@ -70,7 +83,7 @@
           <i class="el-icon-arrow-right"></i>
         </div>
       </div>
-      <div class="user_content_item">
+      <div class="user_content_item" @click="family">
         <div class="user_content_item_left">
           <span>家庭成员</span>
         </div>
@@ -80,7 +93,9 @@
       </div>
     </div>
 
-      <el-button type="danger" class="user_exit_btn">退出登录</el-button>
+    <el-button type="danger" class="user_exit_btn" @click="exit"
+      >退出登录</el-button
+    >
   </div>
 </template>
 
@@ -95,44 +110,92 @@ export default {
         nation: "汉族",
         birthday: "2005-06-05",
         phone: "",
+        email: "",
         idno: "511822200506051244",
-        autograph: "奔涌吧，后浪！！！"
+      },
+      clazzInfo: {
+        id: 1,
+        name: "19级舞蹈一班",
       },
     };
   },
-  methods:{
-    info:function(){
-      this.$router.replace("/app/student/user/info")
-    }
-  }
+  methods: {
+    info() {
+      this.$router.replace("/app/student/user/info");
+    },
+    baseInfo() {
+      this.$router.replace("/app/student/user/baseInfo");
+    },
+    phone() {
+      this.$router.replace("/app/student/user/phone");
+    },
+    email() {
+      this.$router.replace("/app/student/user/email");
+    },
+    clazz() {
+      this.$router.replace("/app/student/user/clazz");
+    },
+    source() {},
+    family() {},
+    exit() {
+      this.$confirm("是否退出登录?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          var storage = window.localStorage;
+          storage.clear()
+          this.$router.replace("/");
+          this.$message({
+            type: "success",
+            message: "退出成功!",
+          });
+        })
+        .catch(() => {
+        });
+    },
+  },
 };
 </script>
 
 <style>
-.user_exit_btn{
+.el-message {
+  width: auto;
+  min-width: auto;
+}
+.el-message-box {
+  width: 80%;
+  min-width: 80%;
+  max-width: 80%;
+}
+.el-message-box {
+  width: auto !important;
+}
+.user_exit_btn {
   width: auto;
   margin: 10px;
   font-size: 20px;
 }
-.user_content_item_right>i{
-  color: #A6A6A6;
+.user_content_item_right > i {
+  color: #a6a6a6;
 }
-.user_content_item_right>span{
-  color: #B2B2B2;
+.user_content_item_right > span {
+  color: #b2b2b2;
 }
-.user_content_item:active{
-  background-color: #AED0FA;
+.user_content_item:active {
+  background-color: #aed0fa;
 }
-.user_content_item{
+.user_content_item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px solid #E0E0E2;
+  border-bottom: 1px solid #e0e0e2;
   color: #777777;
   padding: 15px;
 }
-.user_content{
-  background-color: #FFFFFF;
+.user_content {
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -144,7 +207,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.user_head{
+.user_head {
   display: flex;
   flex-direction: column;
 }
@@ -176,23 +239,23 @@ export default {
   font-size: 13px;
   color: #f0f0f0;
 }
-.user_head_02{
+.user_head_02 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
-.user_head_02_item{
+.user_head_02_item {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.user_head_02_item_score{
+.user_head_02_item_score {
   font-size: 18px;
   color: aliceblue;
 }
-.user_head_02_item_type{
+.user_head_02_item_type {
   font-size: 12px;
-  color: #C9CEE2;
+  color: #c9cee2;
 }
 </style>

@@ -1,8 +1,18 @@
 <template>
   <div class="info">
     <Header title="个人信息" />
+    <img
+      v-if="user.avatarUrl != null && user.avatarUrl != ''"
+      class="head_img"
+      :src="user.avatarUrl"
+    />
+    <img
+      v-if="user.avatarUrl == null || user.avatarUrl == ''"
+      class="head_img"
+      src="@/assets/head.png"
+    />
     <el-form
-      v-if="user.isSure==0||user.isSure==null"
+      v-if="user.isSure == 0 || user.isSure == null"
       :model="user"
       :rules="userRules"
       ref="user"
@@ -24,14 +34,23 @@
       </el-form-item>
       <el-form-item label="民族" prop="nation">
         <el-col :span="20">
-          <el-select v-model="user.nation" placeholder="--请选择--" @focus="loadNations">
-            <el-option v-for="item in nations" :key="item" :label="item" :value="item"></el-option>
+          <el-select
+            v-model="user.nation"
+            placeholder="--请选择--"
+            @focus="loadNations"
+          >
+            <el-option
+              v-for="item in nations"
+              :key="item"
+              :label="item"
+              :value="item"
+            ></el-option>
           </el-select>
         </el-col>
       </el-form-item>
       <el-form-item label="身份证号" prop="idno">
         <el-col :span="20">
-          <el-input v-model="user.idno" maxlength="18"></el-input>
+          <el-input v-model="user.idno" maxlength="18" disabled></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="出生日期">
@@ -39,11 +58,56 @@
           <el-input v-model="user.birthday" :disabled="true"></el-input>
         </el-col>
       </el-form-item>
+      <el-form-item label="手机">
+        <el-col :span="20">
+          <el-input v-model="user.phone" :disabled="true"></el-input>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="邮箱">
+        <el-col :span="20">
+          <el-input v-model="user.email" :disabled="true"></el-input>
+        </el-col>
+      </el-form-item>
       <el-form-item>
-        <el-button type="primary" class="form_btn" @click="open">保存</el-button>
+        <el-button type="primary" class="form_btn" @click="open"
+          >保存</el-button
+        >
       </el-form-item>
     </el-form>
-    <div></div>
+    <div v-if="user.isSure == 1" class="demo-user">
+      <el-form>
+        <el-form-item label="姓名:" style="border-bottom: 1px solid #a6a6a6">
+          <span>{{ user.name }}</span>
+        </el-form-item>
+        <el-form-item label="性别:" style="border-bottom: 1px solid #a6a6a6">
+          <span>{{ user.gender }}</span>
+        </el-form-item>
+        <el-form-item label="民族:" style="border-bottom: 1px solid #a6a6a6">
+          <span>{{ user.nation }}</span>
+        </el-form-item>
+        <el-form-item
+          label="身份证号:"
+          style="border-bottom: 1px solid #a6a6a6"
+        >
+          <span>{{ user.idno }}</span>
+        </el-form-item>
+        <el-form-item
+          label="出生日期:"
+          style="border-bottom: 1px solid #a6a6a6"
+        >
+          <span>{{ user.birthday }}</span>
+        </el-form-item>
+        <el-form-item label="手机:" style="border-bottom: 1px solid #a6a6a6">
+          <span>{{ user.phone }}</span>
+        </el-form-item>
+        <el-form-item label="邮箱:" style="border-bottom: 1px solid #a6a6a6">
+          <span>{{ user.email }}</span>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div style="height:50px;width100%;color:#184683;">
+      1
+    </div>
   </div>
 </template>
 
@@ -60,26 +124,21 @@ export default {
         gender: "女",
         nation: "汉族",
         birthday: "20050605",
-        phone: "",
+        phone: "19934524003",
+        email: "752401007@qq.com",
         idno: "511822200506051244",
         autograph: "奔涌吧，后浪！！！",
+        avatarUrl: "",
         state: 0,
-        isSure: 0
+        isSure: 0,
       },
       nations: [],
       userRules: {
-        name: [
-          { required: true, message: "请输入姓名", trigger: "blur" },
-          { min: 2, max: 5, message: "长度在 2 到 5 个字符", trigger: "blur" }
-        ],
-        gender: [{ required: true, message: "请选择性别", trigger: "change" }],
-        nation: [{ required: true, message: "请选择民族", trigger: "change" }],
-        idno: [
-          { required: true, message: "请填写身份证号", trigger: "blur" },
-          { min: 18, max: 18, message: "长度为18个字符", trigger: "blur" }
-        ],
-        desc: [{ required: true, message: "请填写完善信息", trigger: "blur" }]
-      }
+        name: this.Global.name,
+        gender: this.Global.gender,
+        nation: this.Global.nation,
+        idno: this.Global.idno
+      },
     };
   },
 
@@ -93,7 +152,7 @@ export default {
 
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit!");
         } else {
@@ -102,7 +161,7 @@ export default {
         }
       });
     },
-    loadNations: function() {
+    loadNations: function () {
       console.log(this.nations.length);
       if (this.nations.length != 56) {
         console.log(this.nations.length);
@@ -111,39 +170,55 @@ export default {
       }
     },
     open() {
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("请再次确认信息，保存后将不能进行修改?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
+          this.user.isSure = 1;
+          console.log(this.user.isSure);
           this.$message({
             type: "success",
-            message: "删除成功!"
+            message: "保存成功!",
           });
         })
         .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
+          // this.$message({
+          //   type: "info",
+          //   message: "已取消删除"
+          // });
         });
-    }
+    },
   },
 
   watch: {
     "user.idno": {
-      handler: function(newVal, oldVal) {
+      handler: function (newVal, oldVal) {
         console.log(111);
         if (newVal.length == 18) {
           this.user.birthday = newVal.slice(6, 14);
         }
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
-<style lang='' scoped>
+<style>
+.head_img {
+  width: 70px;
+  border-radius: 100px;
+  margin: 20px;
+}
+.el-message {
+  width: auto;
+  min-width: auto;
+}
+.el-message-box {
+  width: 80%;
+  min-width: 80%;
+  max-width: 80%;
+}
 .el-message-box {
   width: auto !important;
 }
@@ -154,5 +229,15 @@ export default {
   background-color: #ffffff;
   padding: 10px;
   border-radius: 5px;
+  width: 90%;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 90%;
 }
 </style>

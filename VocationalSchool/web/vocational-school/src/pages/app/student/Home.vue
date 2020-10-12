@@ -50,19 +50,19 @@ export default {
           english: "Student achievement"
         },
         {
-          id: 1,
+          id: 2,
           ico: require("../../../assets/student/students_vacation.png"),
           name: "学生假勤",
           english: "Students' vacation"
         },
         {
-          id: 1,
+          id: 3,
           ico: require("../../../assets/student/sqjl.png"),
           name: "实训管理",
           english: "Students' vacation"
         },
         {
-          id: 1,
+          id: 4,
           ico: require("../../../assets/student/zzqyxx.png"),
           name: "企业学习",
           english: "Enterprise learning"
@@ -83,14 +83,15 @@ body {
 }
 .home {
   height: 100%;
-  width: 100%;
+  width: 94%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   align-items: center;
+  overflow-y: auto;
 }
 .home_banner {
-  width: 100%;
+  width: 94%;
   height: auto;
   margin-top: 10px;
 }
@@ -102,9 +103,10 @@ body {
 .home_content {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 94%;
   justify-content: space-between;
   margin-top: 5px;
+  margin-bottom: 20px;
 }
 .home_content_item {
   display: flex;
