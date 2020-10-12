@@ -121,19 +121,19 @@ export default {
   },
   methods: {
     info() {
-      this.$router.replace("/app/student/user/info");
+      this.$router.replace("/app/student/personal/student");
     },
     baseInfo() {
-      this.$router.replace("/app/student/user/baseInfo");
+      this.$router.replace("/app/student/personal/studentInfo");
     },
     phone() {
-      this.$router.replace("/app/student/user/phone");
+      this.$router.replace("/app/student/personal/phone");
     },
     email() {
-      this.$router.replace("/app/student/user/email");
+      this.$router.replace("/app/student/personal/email");
     },
     clazz() {
-      this.$router.replace("/app/student/user/clazz");
+      this.$router.replace("/app/student/personal/clazz");
     },
     source() {},
     family() {},

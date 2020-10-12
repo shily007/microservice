@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import AppStudentIndex from '@/pages/app/student/Index'
-import AppStudentMain from '@/pages/app/student/Main'
-import AppStudentHome from '@/pages/app/student/Home'
-import AppStudentUser from '@/pages/app/student/User'
-import AppStudentUser_info from '@/pages/app/student/info/Info'
-import AppStudentUser_phone from '@/pages/app/student/info/Phone'
-import AppStudentUser_email from '@/pages/app/student/info/Email'
-import AppStudentUser_clazz from '@/pages/app/student/info/Clazz'
-import AppStudentUser_BaseInfo from '@/pages/app/student/info/BaseInfo'
+import App_Student_Index from '@/pages/app/student/Index'
+import App_Student_Main from '@/pages/app/student/Main'
+import App_Student_Home from '@/pages/app/student/Home'
+import App_Student_Personal from '@/pages/app/student/Personal'
+import App_Student_Personal_Student from '@/pages/app/student/personal/Student'
+import App_Student_Personal_Phone from '@/pages/app/student/personal/Phone'
+import App_Student_Personal_Email from '@/pages/app/student/personal/Email'
+import App_Student_Personal_Clazz from '@/pages/app/student/personal/Clazz'
+import App_Student_Personal_StudentInfo from '@/pages/app/student/personal/StudentInfo'
 
 Vue.use(Router)
 
@@ -16,67 +16,67 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'AppStudentIndex',
-      component: AppStudentIndex
+      name: 'App_Student_Index',
+      component: App_Student_Index
     },
     //student routes
     {
-      path: '/app/student',
-      name: 'AppStudentMain',
-      component: AppStudentMain,
+      path: '/app/student/main',
+      name: 'App_Student_Main',
+      component: App_Student_Main,
       children:[
         {
           path: '/app/student/home',
-          name: 'AppStudentHome',
-          component: AppStudentHome,
+          name: 'App_Student_Home',
+          component: App_Student_Home,
           meta:{
             showFooter: false
           }
         },
         {
-          path: '/app/student/user',
-          name: 'AppStudentUser',
-          component: AppStudentUser,
+          path: '/app/student/personal',
+          name: 'App_Student_Personal',
+          component: App_Student_Personal,
           meta:{
             showFooter: false
           }
         },
         {
-          path: '/app/student/user/info',
-          name: 'AppStudentUser_info',
-          component: AppStudentUser_info,
+          path: '/app/student/personal/student',
+          name: 'App_Student_Personal_Student',
+          component: App_Student_Personal_Student,
           meta:{
             showFooter: false
           }
         },
         {
-          path: '/app/student/user/phone',
-          name: 'AppStudentUser_phone',
-          component: AppStudentUser_phone,
+          path: '/app/student/personal/phone',
+          name: 'App_Student_Personal_Phone',
+          component: App_Student_Personal_Phone,
           meta:{
             showFooter: false
           }
         },
         {
-          path: '/app/student/user/email',
-          name: 'AppStudentUser_email',
-          component: AppStudentUser_email,
+          path: '/app/student/personal/email',
+          name: 'App_Student_Personal_Email',
+          component: App_Student_Personal_Email,
           meta:{
             showFooter: false
           }
         },
         {
-          path: '/app/student/user/clazz',
-          name: 'AppStudentUser_clazz',
-          component: AppStudentUser_clazz,
+          path: '/app/student/personal/clazz',
+          name: 'App_Student_Personal_Clazz',
+          component: App_Student_Personal_Clazz,
           meta:{
             showFooter: false
           }
         },
         {
-          path: '/app/student/user/baseInfo',
-          name: 'AppStudentUser_BaseInfo',
-          component: AppStudentUser_BaseInfo,
+          path: '/app/student/personal/studentInfo',
+          name: 'App_Student_Personal_StudentInfo',
+          component: App_Student_Personal_StudentInfo,
           meta:{
             showFooter: false
           }

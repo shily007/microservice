@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     login: function () {
-      this.$router.push("/app/student");
+      this.$router.push("/app/student/main");
     },
   },
 };

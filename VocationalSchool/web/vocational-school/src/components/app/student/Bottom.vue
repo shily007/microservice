@@ -45,13 +45,13 @@ export default {
       this.$router.push("/app/student/home");
     },
     courseTable: function () {
-      this.$router.push("/app/student/user");
+      this.$router.push("/app/student/personal");
     },
     test: function () {
-      this.$router.push("/app/student/user");
+      this.$router.push("/app/student/personal");
     },
     user: function () {
-      this.$router.push("/app/student/user");
+      this.$router.push("/app/student/personal");
     }
   },
 };

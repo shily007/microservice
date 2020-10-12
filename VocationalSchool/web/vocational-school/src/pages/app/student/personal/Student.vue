@@ -2,31 +2,31 @@
   <div class="info">
     <Header title="个人信息" />
     <img
-      v-if="user.avatarUrl != null && user.avatarUrl != ''"
+      v-if="student.avatarUrl != null && student.avatarUrl != ''"
       class="head_img"
-      :src="user.avatarUrl"
+      :src="student.avatarUrl"
     />
     <img
-      v-if="user.avatarUrl == null || user.avatarUrl == ''"
+      v-if="student.avatarUrl == null || student.avatarUrl == ''"
       class="head_img"
       src="@/assets/head.png"
     />
     <el-form
-      v-if="user.isSure == 0 || user.isSure == null"
-      :model="user"
-      :rules="userRules"
-      ref="user"
+      v-if="student.isSure == 0 || student.isSure == null"
+      :model="student"
+      :rules="studentRules"
+      ref="student"
       label-width="80px"
-      class="demo-user"
+      class="demo-student"
     >
       <el-form-item label="姓名" prop="name">
         <el-col :span="20">
-          <el-input v-model="user.name" maxlength="5"></el-input>
+          <el-input v-model="student.name" maxlength="5"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="性别" prop="gender">
         <el-col :span="20">
-          <el-radio-group v-model="user.gender">
+          <el-radio-group v-model="student.gender">
             <el-radio label="男"></el-radio>
             <el-radio label="女"></el-radio>
           </el-radio-group>
@@ -35,7 +35,7 @@
       <el-form-item label="民族" prop="nation">
         <el-col :span="20">
           <el-select
-            v-model="user.nation"
+            v-model="student.nation"
             placeholder="--请选择--"
             @focus="loadNations"
           >
@@ -50,22 +50,22 @@
       </el-form-item>
       <el-form-item label="身份证号" prop="idno">
         <el-col :span="20">
-          <el-input v-model="user.idno" maxlength="18" disabled></el-input>
+          <el-input v-model="student.idno" maxlength="18" disabled></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="出生日期">
         <el-col :span="20">
-          <el-input v-model="user.birthday" :disabled="true"></el-input>
+          <el-input v-model="student.birthday" :disabled="true"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="手机">
         <el-col :span="20">
-          <el-input v-model="user.phone" :disabled="true"></el-input>
+          <el-input v-model="student.phone" :disabled="true"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="邮箱">
         <el-col :span="20">
-          <el-input v-model="user.email" :disabled="true"></el-input>
+          <el-input v-model="student.email" :disabled="true"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item>
@@ -74,34 +74,34 @@
         >
       </el-form-item>
     </el-form>
-    <div v-if="user.isSure == 1" class="demo-user">
+    <div v-if="student.isSure == 1" class="demo-student">
       <el-form>
         <el-form-item label="姓名:" style="border-bottom: 1px solid #a6a6a6">
-          <span>{{ user.name }}</span>
+          <span>{{ student.name }}</span>
         </el-form-item>
         <el-form-item label="性别:" style="border-bottom: 1px solid #a6a6a6">
-          <span>{{ user.gender }}</span>
+          <span>{{ student.gender }}</span>
         </el-form-item>
         <el-form-item label="民族:" style="border-bottom: 1px solid #a6a6a6">
-          <span>{{ user.nation }}</span>
+          <span>{{ student.nation }}</span>
         </el-form-item>
         <el-form-item
           label="身份证号:"
           style="border-bottom: 1px solid #a6a6a6"
         >
-          <span>{{ user.idno }}</span>
+          <span>{{ student.idno }}</span>
         </el-form-item>
         <el-form-item
           label="出生日期:"
           style="border-bottom: 1px solid #a6a6a6"
         >
-          <span>{{ user.birthday }}</span>
+          <span>{{ student.birthday }}</span>
         </el-form-item>
         <el-form-item label="手机:" style="border-bottom: 1px solid #a6a6a6">
-          <span>{{ user.phone }}</span>
+          <span>{{ student.phone }}</span>
         </el-form-item>
         <el-form-item label="邮箱:" style="border-bottom: 1px solid #a6a6a6">
-          <span>{{ user.email }}</span>
+          <span>{{ student.email }}</span>
         </el-form-item>
       </el-form>
     </div>
@@ -118,7 +118,7 @@ export default {
   props: [""],
   data() {
     return {
-      user: {
+      student: {
         id: 1,
         name: "扬扬",
         gender: "女",
@@ -133,7 +133,7 @@ export default {
         isSure: 0,
       },
       nations: [],
-      userRules: {
+      studentRules: {
         name: this.Global.name,
         gender: this.Global.gender,
         nation: this.Global.nation,
@@ -176,8 +176,8 @@ export default {
         type: "warning",
       })
         .then(() => {
-          this.user.isSure = 1;
-          console.log(this.user.isSure);
+          this.student.isSure = 1;
+          console.log(this.student.isSure);
           this.$message({
             type: "success",
             message: "保存成功!",
@@ -193,11 +193,11 @@ export default {
   },
 
   watch: {
-    "user.idno": {
+    "student.idno": {
       handler: function (newVal, oldVal) {
         console.log(111);
         if (newVal.length == 18) {
-          this.user.birthday = newVal.slice(6, 14);
+          this.student.birthday = newVal.slice(6, 14);
         }
       },
     },
@@ -225,7 +225,7 @@ export default {
 .form_btn {
   width: 70%;
 }
-.demo-user {
+.demo-student {
   background-color: #ffffff;
   padding: 10px;
   border-radius: 5px;
