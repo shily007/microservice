@@ -21,67 +21,60 @@ export default new Router({
     },
     //student routes
     {
-      path: '/app/student/main',
-      name: 'App_Student_Main',
-      component: App_Student_Main,
-      children:[
-        {
-          path: '/app/student/home',
-          name: 'App_Student_Home',
-          component: App_Student_Home,
-          meta:{
-            showFooter: false
-          }
-        },
-        {
-          path: '/app/student/personal',
-          name: 'App_Student_Personal',
-          component: App_Student_Personal,
-          meta:{
-            showFooter: false
-          }
-        },
-        {
-          path: '/app/student/personal/student',
-          name: 'App_Student_Personal_Student',
-          component: App_Student_Personal_Student,
-          meta:{
-            showFooter: false
-          }
-        },
-        {
-          path: '/app/student/personal/phone',
-          name: 'App_Student_Personal_Phone',
-          component: App_Student_Personal_Phone,
-          meta:{
-            showFooter: false
-          }
-        },
-        {
-          path: '/app/student/personal/email',
-          name: 'App_Student_Personal_Email',
-          component: App_Student_Personal_Email,
-          meta:{
-            showFooter: false
-          }
-        },
-        {
-          path: '/app/student/personal/clazz',
-          name: 'App_Student_Personal_Clazz',
-          component: App_Student_Personal_Clazz,
-          meta:{
-            showFooter: false
-          }
-        },
-        {
-          path: '/app/student/personal/studentInfo',
-          name: 'App_Student_Personal_StudentInfo',
-          component: App_Student_Personal_StudentInfo,
-          meta:{
-            showFooter: false
-          }
-        }
-      ]
+      path: '/app/student/home',
+      name: 'App_Student_Home',
+      component: App_Student_Home,
+      meta:{
+        showFooter: false
+      }
+    },
+    {
+      path: '/app/student/personal',
+      name: 'App_Student_Personal',
+      component: App_Student_Personal,
+      meta:{
+        showFooter: false
+      }
+    },
+    {
+      path: '/app/student/personal/student',
+      name: 'App_Student_Personal_Student',
+      component: App_Student_Personal_Student,
+      meta:{
+        showFooter: false
+      }
+    },
+    {
+      path: '/app/student/personal/phone',
+      name: 'App_Student_Personal_Phone',
+      component: App_Student_Personal_Phone,
+      meta:{
+        showFooter: false
+      }
+    },
+    {
+      path: '/app/student/personal/email',
+      name: 'App_Student_Personal_Email',
+      component: App_Student_Personal_Email,
+      meta:{
+        showFooter: false
+      }
+    },
+    {
+      path: '/app/student/personal/clazz',
+      name: 'App_Student_Personal_Clazz',
+      component: App_Student_Personal_Clazz,
+      meta:{
+        showFooter: false
+      }
+    },
+    {
+      path: '/app/student/personal/studentInfo',
+      name: 'App_Student_Personal_StudentInfo',
+      component: App_Student_Personal_StudentInfo,
+      meta:{
+        showFooter: false
+      }
     }
   ]
 })

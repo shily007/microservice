@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import Header from "@/components/app/student/Header";
 export default {
   name: "",
   props: [""],
@@ -83,13 +82,15 @@ export default {
     };
   },
 
-  components: { Header },
+  components: {  },
 
   computed: {},
 
   beforeMount() {},
 
-  mounted() {},
+  mounted() {
+    this.$emit("titleChanged", "基本资料");
+  },
 
   methods: {},
 

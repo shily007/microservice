@@ -28,23 +28,26 @@ const phone = [
 //姓名验证
 const name = [
     { required: true, message: "请输入姓名", trigger: "blur" },
-    { min: 2, max: 5, message: "长度在 2 到 5 个字符", trigger: "blur" },
+    { min: 2, max: 5, message: "长度在 2 到 5 个字符", trigger: "blur" }
 ];
 //身份证号码验证
 const idno = [
     { required: true, message: "请填写身份证号", trigger: "blur" },
-    { min: 18, max: 18, message: "长度为18个字符", trigger: "blur" },
+    { min: 18, max: 18, message: "长度为18个字符", trigger: "blur" }
 ];
 //性别验证
 const gender = [{ required: true, message: "请选择性别", trigger: "change" }];
 //民族验证
 const nation = [{ required: true, message: "请选择民族", trigger: "change" }];
 //输入框默认验证
-const input_desc = [{ required: true, message: "请填写完善信息！", trigger: "blur" }];
+const input_desc = [{ required: true, message: "请完善信息！", trigger: "blur" }];
 //单选、复选、下拉默认验证
 const select_desc = [{ required: true, message: "请选择！", trigger: "change" }];
 //邮箱验证
 const email = [{ required: true, message: "邮箱不能为空！", trigger: "blur" }];
+//证件类型
+const idTypes = ["居民身份证", "军官证", "士兵证", "文职干部证", "部队离退休证", "香港特区护照/身份证明", "澳门特区护照/身份证明", "台湾居民来往大陆通行证", "境外永久居住证", "护照", "其他"];
+const headerShow =true;
 export default {
-    schoolName, nations, code, phone, idno, gender, nation, input_desc, select_desc, email
+    schoolName, nations, code, phone, name, idno, gender, nation, input_desc, select_desc, email, idTypes,headerShow
 }

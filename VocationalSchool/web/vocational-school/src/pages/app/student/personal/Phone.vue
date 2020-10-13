@@ -1,6 +1,5 @@
 <template>
   <div class="phone">
-    <Header title="绑定手机"></Header>
     <div class="phone_content">
       <div v-if="oldPhone == null || oldPhone == ''">
         <BindPhone
@@ -28,7 +27,6 @@
 </template>
 
 <script>
-import Header from "@/components/app/student/Header";
 import BindPhone from "@/components/app/bind/phone/Bind";
 import UpBindPhone from "@/components/app/bind/phone/Up";
 import BindOk from "@/components/app/bind/Ok";
@@ -39,8 +37,10 @@ export default {
       oldPhone: ""
     };
   },
+  mounted() {
+    this.$emit("titleChanged", "绑定手机");
+  },
   components: {
-    Header,
     BindPhone,
     UpBindPhone,
     BindOk,

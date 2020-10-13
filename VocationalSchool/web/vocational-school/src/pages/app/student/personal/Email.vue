@@ -1,6 +1,5 @@
 <template>
   <div class="email">
-    <Header title="绑定邮箱"></Header>
     <div class="email_content">
       <div v-if="oldEmail == null || oldEmail == ''">
         <Bind
@@ -24,7 +23,6 @@
 </template>
 
 <script>
-import Header from "@/components/app/student/Header";
 import Bind from "@/components/app/bind/email/Bind";
 import Up from "@/components/app/bind/email/Up";
 import BindOk from "@/components/app/bind/Ok";
@@ -35,8 +33,10 @@ export default {
       oldEmail: "",
     };
   },
+  mounted() {
+    this.$emit("titleChanged", "绑定邮箱");
+  },
   components: {
-    Header,
     Bind,
     Up,
     BindOk,
