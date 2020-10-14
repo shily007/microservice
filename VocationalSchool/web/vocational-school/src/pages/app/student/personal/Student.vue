@@ -63,7 +63,7 @@
               size="small"
             >
               <el-option
-                v-for="item in nations"
+                v-for="item in this.Global.nations"
                 :key="item"
                 :label="item"
                 :value="item"
@@ -204,7 +204,7 @@ export default {
         state: 0,
         isSure: 0,
       },
-      nations: this.Global.nations,
+      // nations: this.Global.nations,
       studentRules: {
         name: this.Global.input_desc,
         gender: this.Global.gender,

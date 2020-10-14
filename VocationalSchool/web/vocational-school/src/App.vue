@@ -4,7 +4,7 @@
     <div class="app_content">
       <Header class="app_content_header" v-if="title!=null&&title!=''" :title="title"></Header>
       <div class="app_content_header_camouflage" v-if="title!=null&&title!=''">1</div>
-      <router-view v-on:titleChanged="updateHeader"/>
+      <router-view class="app_content_router" v-on:titleChanged="updateHeader"/>
     </div>
   </div>
 </template>
@@ -30,9 +30,12 @@ export default {
 </script>
 
 <style>
-.app_content_router{
+/* .app_content_router{
   margin-top: 39px;
-}
+  height: auto !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+} */
 .app_content_header_camouflage{
   width: 100%;
   height: 39px;
@@ -58,6 +61,7 @@ body,
     rgba(75, 152, 245, 1),
     rgba(1, 32, 79, 1)
   );
+  /* overflow: auto; */
 }
 .app_content {
   height: 100%;
@@ -65,9 +69,8 @@ body,
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto;
   align-content: center;
-  overflow-x: hidden;
+  overflow:auto;
 }
 /* #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

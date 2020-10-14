@@ -47,7 +47,22 @@ const select_desc = [{ required: true, message: "请选择！", trigger: "change
 const email = [{ required: true, message: "邮箱不能为空！", trigger: "blur" }];
 //证件类型
 const idTypes = ["居民身份证", "军官证", "士兵证", "文职干部证", "部队离退休证", "香港特区护照/身份证明", "澳门特区护照/身份证明", "台湾居民来往大陆通行证", "境外永久居住证", "护照", "其他"];
-const headerShow =true;
+const headerShow = true;
+//政治面貌
+const politicalStatus = ["中国共产主义青年团团员", "群众", "中国共产党员", "中国共产党预备党员", "中国国民党革命委员会会员", "中国民主同盟盟员",
+    "中国民主建国会会员", "中国民主促进会会员", "中国农工民主党党员", "中国致工党党员", "九三学社社员", "台湾民主自治同盟盟员", "无党派民主人士"];
+//婚姻状况
+const maritalStatus = ["未婚", "已婚"];
+//国家
+const countrys = ["中国", "其他国家"];
+//港澳台侨外
+const overseasChinese = ["非港澳台湾侨", "香港同胞", "香港同胞亲属", "澳门同胞", "澳门同胞亲属", "台湾同胞", "台湾同胞亲属", "华侨", "侨眷", "归侨", "归侨子女"
+    , "归国留学人员", "非华裔中国人", "外籍华裔人", "外国人", "其他"];
+//户口性质
+const huKouXingZhi = ["农业户口", "非农业户口"];
+//学生居住地类型
+const habitationType = ["农村","县城","乡镇非农","城市"];
 export default {
-    schoolName, nations, code, phone, name, idno, gender, nation, input_desc, select_desc, email, idTypes,headerShow
+    schoolName, nations, code, phone, name, idno, gender, nation, input_desc, select_desc, email, idTypes, headerShow, politicalStatus,
+    maritalStatus, countrys, overseasChinese, huKouXingZhi,habitationType
 }
