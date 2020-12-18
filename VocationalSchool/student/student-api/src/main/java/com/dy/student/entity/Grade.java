@@ -33,9 +33,9 @@ public class Grade implements Serializable {
     private Integer name;
 
     /**
-     * 年级简称
+     * 年级编号
      */
-    private String abbreviation;
+    private String num;
 
     /**
      * 创建时间

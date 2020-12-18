@@ -1,0 +1,73 @@
+server:
+  address: 0.0.0.0
+  port: 1000
+
+spring:
+  application:    name: microservice-authorization-server
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.2.111:3306/microservice?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=Hongkong
+    username: root
+    password: centos7
+    
+#    url: jdbc:mysql://localhost:3306/microservice?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=Hongkong
+#    username: root
+#    password: dy123456
+    continue-on-error: false
+    name: MYSQL
+    platform: all
+
+  jmx:
+    enabled: false
+
+#  redis:
+#    host: 192.168.2.105
+#    port: 6379
+
+  mail:
+      host: smtp.126.com
+      port: 465
+      username: ewdaoyuan@126.com
+      password: ewdy123456
+      protocol: smtp
+      default-encoding: UTF-8
+      properties:
+          mail.smtp.auth: true
+          mail.smtp.starttls.enable: true
+          mail.smtp.starttls.required: true
+          mail.smtp.socketFactory.port: 465
+          mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+          mail.smtp.socketFactory.fallback: false
+
+#mybatis:
+#  type-handlers-package: com.bms.api.handlers
+
+eureka: 
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      defaultZone:  ENC(Vc2+db9YK6J+YbmdpIfjJFNZKuCgpmcilhDqAzJT4R/lXxE+nvkBNHoOXf+EwvHAib7DA14ssz8=)
+#      defaultZone: ENC(e9qKnB2ANTJmCS8kfF3ZvQC2THlPdaOdoIplsMxRR21Dx/iVnyxLa4pP+CupBwg4flXb1LTAWXw=) 
+#       defaultZone: http://eureka7001.com:7001/eureka/ #,http://eureka7002.com:7002/eureka/,  http://eureka7003.com:7003/eureka/ 
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true     #访问路径可以显示IP地址 
+#    metadata-map:
+#      user.name: ENC(+8Qi/AE8/qMVBp/cfbK21Q==)
+#      user.password: ENC(x8RkFh6daB/KpSO8pB9pjQ==)
+      
+management:
+  endpoints:
+    web:
+      exposure:
+       include: "*" 
+
+logging:
+  level:
+    com.bms: debug
+
+#本服务的说明 
+info: 
+  app.name: ${spring.application.name}
+  company.name: www.dy.com
+  build.artifactId: "@project.artifactId@"
+  build.version: "@project.version@"
