@@ -2,6 +2,7 @@ package com.dy.auth.interceptor;
 
 import java.util.Collection;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,6 +14,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
+@AllArgsConstructor
 public class AuthUser {
 	
 	private String username;
@@ -51,6 +53,11 @@ public class AuthUser {
 	 */
 	public boolean isEnabled() {
 		return enabled;
+	}
+
+	public AuthUser(String username, String password) {
+		this.username = username;
+		this.password = password;
 	}
 
 }

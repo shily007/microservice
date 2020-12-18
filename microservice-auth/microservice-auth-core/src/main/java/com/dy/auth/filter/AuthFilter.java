@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.dy.api.utils.JsonResult;
 import com.dy.auth.JwtUtils;
 import com.dy.auth.exception.AuthException;
 import com.dy.auth.exception.TokenInvalidException;
@@ -22,7 +23,7 @@ import com.dy.auth.interceptor.AuthUser;
 import com.dy.auth.interceptor.AuthUserService;
 import com.dy.auth.interceptor.HttpAuth;
 import com.dy.auth.util.PasswordUtil;
-import com.dy.auth.util.RSAUtil;
+import com.dy.auth.util.TokenResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -69,7 +70,7 @@ public class AuthFilter extends OncePerRequestFilter {
 					throw new TokenNullException("token is null");
 				}
 				try {
-					token = RSAUtil.decrypt(token);
+//					token = RSAUtil.decrypt(token);
 //				Claims claims = 
 					JwtUtils.parseJWT(token);
 				} catch (ExpiredJwtException e) {
@@ -121,10 +122,9 @@ public class AuthFilter extends OncePerRequestFilter {
 		if (!user.isEnabled()) {
 			throw new AuthException("user not enabled");
 		}
-		String token = jwtUtils.createJWT(user.getUsername(), "");
-		token = RSAUtil.encrypt(token);
+		TokenResult token = jwtUtils.createJWT(user.getUsername(), "");
 		try {
-			response.getWriter().write(objectMapper.writeValueAsString("{'access_token':" + token + "}"));
+			response.getWriter().write(objectMapper.writeValueAsString(new JsonResult<>(token)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -140,10 +140,10 @@ public class AuthFilter extends OncePerRequestFilter {
 	private boolean uriIsAuth(String uri) {
 		for (String regex : http.getIgnore_uris()) {
 			if (antPathMatcher.match(regex, uri)) {
-				return true;
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	/**
@@ -154,8 +154,10 @@ public class AuthFilter extends OncePerRequestFilter {
 	 * @author dy 2020年12月16日
 	 */
 	private String getToken(HttpServletRequest request) {
-		String token = request.getHeader(ACCESS_TOKEN);// 先从header取token
-		if (!StringUtils.isNotBlank(token)) {// 如果token为null，再从请求参数中取
+		String token = request.getHeader("Authorization");// 先从header取token
+		if (StringUtils.isNotBlank(token)) {
+			token = token.substring(token.indexOf(" ")+1);
+		}else {// 如果token为null，再从请求参数中取
 			token = request.getParameter(ACCESS_TOKEN);
 		}
 		return token;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.dy.auth.properties.JwtConstant;
 import com.dy.auth.properties.JwtProperties;
+import com.dy.auth.util.TokenResult;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -34,14 +35,18 @@ public class JwtUtils {
 	 * @return String
 	 *
 	 */
-	public String createJWT(String username, String subject) {
+	public TokenResult createJWT(String username, String subject) {
 		long nowMillis = System.currentTimeMillis();
-		return Jwts.builder().setId(username).setSubject(subject) // 主题
+		 String token = Jwts.builder().setId(username).setSubject(subject) // 主题
 				.setIssuer("user") // 签发者
 				.setIssuedAt(new Date(nowMillis)) // 签发时间
 				.signWith(SignatureAlgorithm.HS256, generalKey()) // 签名算法以及密匙
 				.setExpiration(new Date(nowMillis + jwtProperties.getTOKEN_EXP_TIME())) // 过期时间
 				.compact();
+		TokenResult tokenResult = new TokenResult();
+		tokenResult.setAccess_token(token);
+		tokenResult.setExpires_in(jwtProperties.getTOKEN_EXP_TIME()/1000-1);
+		return tokenResult;
 	}
 
 	public static SecretKey generalKey() {

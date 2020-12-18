@@ -2,6 +2,7 @@ package com.dy.auth.exception;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dy.api.utils.JsonResult;
 
@@ -10,8 +11,9 @@ import com.dy.api.utils.JsonResult;
  * @author dy
  *
  */
+@ResponseBody
 @ControllerAdvice
-public class AuthGlobalException {
+public class AuthGlobalExceptionConfig {
 	
 	@ExceptionHandler(value = AuthException.class)
 	public JsonResult<Object> login(AuthException e) {

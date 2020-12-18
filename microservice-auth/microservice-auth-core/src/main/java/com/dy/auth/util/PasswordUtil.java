@@ -134,7 +134,7 @@ public class PasswordUtil {
 	public static void main(String[] args) {
 		String str = "username";
 		System.out.println("username-->" + str.length());
-		String password = "111111111111";
+		String password = "111111";
 		try {
 			String ciphertext = encryptPassword(str, password);
 			System.out.println("密文:" + ciphertext);
