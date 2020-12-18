@@ -15,14 +15,15 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.dy.auth.JwtUtils;
 import com.dy.auth.exception.AuthException;
-import com.dy.auth.exception.TonkenInvalidException;
-import com.dy.auth.exception.TonkenNullException;
+import com.dy.auth.exception.TokenInvalidException;
+import com.dy.auth.exception.TokenNullException;
 import com.dy.auth.interceptor.AuthResourceConfigurer;
 import com.dy.auth.interceptor.AuthUser;
 import com.dy.auth.interceptor.AuthUserService;
 import com.dy.auth.interceptor.HttpAuth;
 import com.dy.auth.util.PasswordUtil;
 import com.dy.auth.util.RSAUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -36,17 +37,27 @@ public class AuthFilter extends OncePerRequestFilter {
 
 	private final static String ACCESS_TOKEN = "access_token";
 	private AntPathMatcher antPathMatcher = new AntPathMatcher();
-	private HttpAuth http = new HttpAuth();
+	private HttpAuth http = null;
 	@Autowired
 	private AuthResourceConfigurer authResourceConfigurer;
 	@Autowired(required = false)
 	private AuthUserService authUserService;
 	@Autowired
 	private JwtUtils jwtUtils;
+	@Autowired
+	private ObjectMapper objectMapper;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		if (http == null) {
+			synchronized (this.getClass()) {
+				if(http == null) {
+					http = HttpAuth.getHttpAuth();
+					authResourceConfigurer.configure(http);
+				}
+			}
+		}
 		String uri = request.getRequestURI();
 		if (uri.equals(http.getLoginProcessingUrl())) {
 			login(request, response);
@@ -55,16 +66,16 @@ public class AuthFilter extends OncePerRequestFilter {
 			if (uriIsAuth(uri)) {
 				String token = getToken(request);// 从 http 请求头中取出 token
 				if (!StringUtils.isNotBlank(token)) {
-					throw new TonkenNullException("token is null");
+					throw new TokenNullException("token is null");
 				}
 				try {
 					token = RSAUtil.decrypt(token);
 //				Claims claims = 
 					JwtUtils.parseJWT(token);
 				} catch (ExpiredJwtException e) {
-					throw new TonkenInvalidException("token is expired");
+					throw new TokenInvalidException("token is expired");
 				} catch (Exception e) {
-					throw new TonkenInvalidException("token is invalid");
+					throw new TokenInvalidException("token is invalid");
 				}
 			}
 			filterChain.doFilter(request, response);
@@ -91,7 +102,7 @@ public class AuthFilter extends OncePerRequestFilter {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			if (!StringUtils.isNotBlank(username) || !StringUtils.isNotBlank(password)) {
-				throw new AuthException("username and password must is not null");
+				throw new AuthException("username and password must not null");
 			}
 			user = authUserService.loadByUsernamer(username);
 			if (user == null) {
@@ -100,7 +111,7 @@ public class AuthFilter extends OncePerRequestFilter {
 			if (!PasswordUtil.comparePassword(username, password, user.getPassword())) {
 				throw new AuthException("username or password error");
 			}
-		}		
+		}
 		if (user.isAccountNonExpired()) {
 			throw new AuthException("user expired");
 		}
@@ -113,7 +124,7 @@ public class AuthFilter extends OncePerRequestFilter {
 		String token = jwtUtils.createJWT(user.getUsername(), "");
 		token = RSAUtil.encrypt(token);
 		try {
-			response.getWriter().write("{'access_token':"+token+"}");
+			response.getWriter().write(objectMapper.writeValueAsString("{'access_token':" + token + "}"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

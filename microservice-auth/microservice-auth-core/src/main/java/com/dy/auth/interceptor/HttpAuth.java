@@ -8,6 +8,15 @@ public class HttpAuth {
 	
 	private String loginProcessingUrl;
 	private List<String> ignore_uris = new ArrayList<>();
+	private static HttpAuth http = new HttpAuth();
+	
+	private HttpAuth() {
+		super();
+	}
+	
+	public static HttpAuth getHttpAuth() {
+		return http;
+	}
 	
 	public HttpAuth loginProcessingUrl(String loginProcessingUrl) {
 		this.loginProcessingUrl = loginProcessingUrl;

@@ -8,6 +8,6 @@ package com.dy.auth.interceptor;
  */
 public interface AuthResourceConfigurer {
 	
-	void configure(HttpAuth http) throws Exception;
+	void configure(HttpAuth http);
 
 }

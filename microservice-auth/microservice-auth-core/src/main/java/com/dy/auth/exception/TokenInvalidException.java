@@ -6,7 +6,7 @@ package com.dy.auth.exception;
  * @author dy
  * 2020年12月16日
  */
-public class TonkenInvalidException extends RuntimeException {
+public class TokenInvalidException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -15,7 +15,7 @@ public class TonkenInvalidException extends RuntimeException {
      * detail message.  The cause is not initialized, and may subsequently be
      * initialized by a call to {@link #initCause}.
      */
-    public TonkenInvalidException() {
+    public TokenInvalidException() {
         super();
     }
 
@@ -26,7 +26,7 @@ public class TonkenInvalidException extends RuntimeException {
      * @param   message   the detail message. The detail message is saved for
      *          later retrieval by the {@link #getMessage()} method.
      */
-    public TonkenInvalidException(String message) {
+    public TokenInvalidException(String message) {
         super(message);
     }
 
@@ -44,7 +44,7 @@ public class TonkenInvalidException extends RuntimeException {
      *         unknown.)
      * @since  1.4
      */
-    public TonkenInvalidException(String message, Throwable cause) {
+    public TokenInvalidException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -60,7 +60,7 @@ public class TonkenInvalidException extends RuntimeException {
      *         unknown.)
      * @since  1.4
      */
-    public TonkenInvalidException(Throwable cause) {
+    public TokenInvalidException(Throwable cause) {
         super(cause);
     }
 
@@ -79,7 +79,7 @@ public class TonkenInvalidException extends RuntimeException {
      *
      * @since 1.7
      */
-    protected TonkenInvalidException(String message, Throwable cause,
+    protected TokenInvalidException(String message, Throwable cause,
                                boolean enableSuppression,
                                boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);

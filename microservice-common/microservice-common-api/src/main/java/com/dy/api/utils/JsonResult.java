@@ -30,6 +30,13 @@ public class JsonResult<T> {
 		this.msg = errorMsg.getMsg();
 	}
 	
+	public JsonResult(String msg) {
+		super();
+		this.success = false;
+		this.code = 1;
+		this.msg = msg;
+	}
+	
 	public JsonResult(T data) {
 		super();
 		this.data = data;
